@@ -1,0 +1,89 @@
+name: Indus
+type: naval
+localizedName: Indus
+credit: Frogga
+databaseTag: units
+hitSize: 10
+deathShake: 1
+health: 275
+armor: 3
+vulnerableWithPayloads: true
+omniMovement: false
+singleTarget: true
+trailLength: 15
+outlineColor: "#282829"
+moveSound: shipMove
+weapons: [
+    {
+      description: "",
+      details: "",
+      credit: "",
+      type: Weapon,
+      shots: 1,
+      display: true,
+      mirror: true,
+      alternate: true,
+      rotate: true,
+      showStatSprite: true,
+      baseRotation: 0,
+      top: true,
+      controllable: true,
+      aiControllable: true,
+      alwaysShooting: false,
+      autoTarget: true,
+      predictTarget: true,
+      useAttackRange: true,
+      targetInterval: 40,
+      targetSwitchInterval: 70,
+      recoil: 1.5,
+      recoils: -1,
+      recoilTime: -1,
+      recoilPow: 1.8,
+      cooldownTime: 20,
+      shootX: 0.3,
+      x: -3.5,
+      y: -1,
+      xRand: 0,
+      yRand: 0,
+      shadow: -1,
+      velocityRnd: 0,
+      extraVelocity: 0,
+      rotationLimit: 361,
+      minWarmup: 0,
+      shootWarmupSpeed: 0.1,
+      smoothReloadSpeed: 0.15,
+      linearWarmup: false,
+      soundPitchMin: 0.8,
+      soundPitchMax: 1,
+      ignoreRotation: false,
+      noAttack: false,
+      minShootVelocity: -1,
+      otherSide: -1,
+      layerOffset: 0,
+      shootStatusDuration: 300,
+      shootOnDeath: false,
+      parts: [],
+      name: Indus-wp1,
+      shootY: 4,
+      inaccuracy: 1,
+      bullet: {
+       shootEffect: shootSmall,
+       damage: 10,
+       scaleKeepVelocity: true,
+       width: 6,
+       height: 9,
+       trailLength: 3,
+       speed: 3,
+       lifetime: 45,
+     },
+      shootSound: shootDuo,
+      shootCone: 10,
+      rotateSpeed: 10,
+      shoot: {
+       type: ShootSpread,
+       shots: 3,
+     },
+      reload: 20,
+      ejectEffect: casing1,
+    },
+  ]

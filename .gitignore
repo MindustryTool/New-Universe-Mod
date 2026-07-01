@@ -1,0 +1,28 @@
+# Gradle build output
+build/
+.gradle/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+
+# Mod JAR (build output, not to commit)
+*.jar
+
+# Temporary files
+*.tmp
+*.log
+
+# Code indexing (local)
+.codegraph/
+
+# Agent state (local)
+.omo/run-continuation/

@@ -1,0 +1,111 @@
+name: External
+localizedName: External
+databaseTag: units
+credit: Frogga
+hitSize: 14
+drownTimeMultiplier: 2
+vulnerableWithPayloads: true
+singleTarget: true
+weapons: [
+    {
+      details: "",
+      credit: "",
+      type: Weapon,
+      shots: 1,
+      display: true,
+      mirror: true,
+      alternate: true,
+      rotate: false,
+      showStatSprite: true,
+      baseRotation: 0,
+      top: false,
+      controllable: true,
+      aiControllable: true,
+      alwaysShooting: false,
+      autoTarget: false,
+      predictTarget: true,
+      useAttackRange: true,
+      targetInterval: 40,
+      targetSwitchInterval: 70,
+      rotateSpeed: 20,
+      recoils: -1,
+      recoilTime: -1,
+      recoilPow: 1.8,
+      cooldownTime: 20,
+      shootX: 0,
+      y: 1.5,
+      xRand: 0,
+      yRand: 0,
+      shadow: -1,
+      velocityRnd: 0,
+      extraVelocity: 0,
+      rotationLimit: 361,
+      minWarmup: 0,
+      shootWarmupSpeed: 0.1,
+      smoothReloadSpeed: 0.15,
+      linearWarmup: false,
+      soundPitchMin: 0.8,
+      soundPitchMax: 1,
+      ignoreRotation: false,
+      noAttack: false,
+      minShootVelocity: -1,
+      otherSide: -1,
+      layerOffset: 0,
+      shootStatusDuration: 300,
+      shootOnDeath: false,
+      parts: [],
+      name: External-mainwp,
+      x: -7.8,
+      shake: 0.5,
+      recoil: 2.5,
+      shootCone: 10,
+      inaccuracy: 1,
+      shootSound: shootMissileSmall,
+      reload: 30,
+      ejectEffect: {
+        type: ParticleEffect,
+        lifetime: 50,
+        clip: 0,
+        startDelay: 0,
+        baseRotation: 0,
+        followParent: true,
+        rotWithParent: false,
+        layerDuration: 0,
+      },
+      bullet: {
+       lifetime: 35,
+       scaleKeepVelocity: true,
+       maxRange: 150,
+       trailColor: "#90F2FF",
+       lightColor: "#90F2FF",
+       backColor: "#90F2FF",
+       frontColor: "#90F2FF",
+       type: MissileBulletType,
+       range: 140,
+       speed: 3.5,
+       damage: 55,
+       shootEffect: shootSmokeTitan,
+     },
+      shootY: 11,
+      shoot: {
+       type: ShootSpread,
+       shots: 3,
+     },
+    },
+  ]
+type: mech
+baseRotateSpeed: 4
+speed: 0.45
+deathSoundVolume: 2
+wreckSoundVolume: 2
+outlineColor: "#282829"
+rotateSpeed: 3
+health: 600
+armor: 5
+alwaysCreateOutline: true
+squareShape: true
+alwaysUnlocked: true
+mechStride: 7
+stepSoundVolume: 1
+range: 140
+maxRange: 150

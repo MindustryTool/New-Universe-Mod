@@ -1,0 +1,111 @@
+name: Noa
+type: mech
+localizedName: Noa
+databaseTag: units
+health: 160
+armor: 1
+range: 144
+maxRange: 160
+vulnerableWithPayloads: true
+singleTarget: true
+alwaysCreateOutline: true
+outlineColor: "#282829"
+weapons: [
+    {
+      description: "",
+      details: "",
+      credit: "",
+      alwaysUnlocked: false,
+      inlineDescription: true,
+      hideDetails: true,
+      hideDatabase: false,
+      generateIcons: true,
+      selectionSize: 24,
+      allDatabaseTabs: false,
+      type: Weapon,
+      shots: 1,
+      display: true,
+      mirror: true,
+      alternate: true,
+      rotate: false,
+      showStatSprite: true,
+      baseRotation: 0,
+      top: false,
+      controllable: true,
+      aiControllable: true,
+      alwaysShooting: false,
+      autoTarget: false,
+      predictTarget: true,
+      useAttackRange: true,
+      targetInterval: 40,
+      targetSwitchInterval: 70,
+      recoil: 1.5,
+      recoils: -1,
+      recoilTime: -1,
+      recoilPow: 1.8,
+      cooldownTime: 20,
+      shootX: -0.5,
+      shootY: 4.5,
+      x: -5,
+      y: 0,
+      xRand: 0,
+      yRand: 0,
+      shadow: -1,
+      velocityRnd: 0,
+      extraVelocity: 0,
+      shootCone: 5,
+      rotationLimit: 361,
+      minWarmup: 0,
+      shootWarmupSpeed: 0.1,
+      smoothReloadSpeed: 0.15,
+      linearWarmup: false,
+      soundPitchMin: 0.8,
+      soundPitchMax: 1,
+      ignoreRotation: false,
+      noAttack: false,
+      minShootVelocity: -1,
+      otherSide: -1,
+      layerOffset: 0,
+      shootStatusDuration: 300,
+      shootOnDeath: false,
+      parts: [],
+      name: Noa-mainwp,
+      databaseTag: turret,
+      rotateSpeed: 0,
+      inaccuracy: 1,
+      shake: 1,
+      bullet: {
+       type: LaserBoltBulletType,
+       databaseTag: turret,
+       shootEffect: absorb,
+       damage: 10,
+       frontColor: "#90F2FF",
+       lightColor: "#90F2FF",
+       backColor: "#4E97C2",
+       trailColor: "#4E97C2",
+       trailLength: 3,
+       range: 144,
+       maxRange: 160,
+       lifetime: 32,
+       speed: 4.5,
+     },
+      ejectEffect: {
+        type: ParticleEffect,
+        lifetime: 50,
+        clip: 0,
+        startDelay: 0,
+        baseRotation: 0,
+        followParent: true,
+        rotWithParent: false,
+        layerDuration: 0,
+      },
+      reload: 25,
+      shoot: {
+       type: ShootHelix,
+     },
+      shootSound: explosionCleroi,
+    },
+  ]
+speed: 0.5
+mechSideSway: 0.3
+hitSize: 10

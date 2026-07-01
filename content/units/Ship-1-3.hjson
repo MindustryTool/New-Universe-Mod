@@ -1,0 +1,184 @@
+name: Sruza
+type: naval
+localizedName: Sruza
+description: "Nothing yet"
+details: "Nothing yet"
+credit: IambottokVN
+abilities: [
+ {
+   type: ShieldArcAbility,
+   display: true,
+   radius: 30,
+   breakSound: acceleratorLaunch,
+ },
+]
+immunities: []
+engines: []
+armor: 5
+health: 940
+alwaysCreateOutline: true
+databaseTag: units
+parts: []
+research: {
+  parent: titanium,
+  requirements: [
+    {
+      item: titanium,
+      amount: 900,
+    },
+  ],
+  planet: serpulo,
+}
+itemCapacity: 200
+ammoCapacity: 200
+lightRadius: 1
+fogRadius: 10
+lowAltitude: true
+aimDst: 1
+buildSpeed: 0
+mineTier: 0
+naval: true
+rippleScale: 3
+alwaysUnlocked: true
+payloadCapacity: 4
+researchCostMultiplier: 100
+dpsEstimate: 3
+flowfieldPathType: 8
+pathCostId: 2
+rotateSpeed: 3
+baseRotateSpeed: 3
+riseSpeed: 0.09
+speed: 0.85
+drag: 0.17
+accel: 0.2
+trailScl: 1.5
+trailLength: 22
+waveTrailX: 7
+waveTrailY: -9
+hitSize: 20
+deathSound: unitExplode1
+circleTargetRadius: 90
+clipSize: 1
+outlineColor: "#282829"
+weapons: [
+    {
+      type: Weapon,
+      description: "Deal dmg",
+      details: "",
+      credit: IambottokVN,
+      alwaysUnlocked: true,
+      inlineDescription: true,
+      hideDetails: true,
+      hideDatabase: false,
+      generateIcons: true,
+      selectionSize: 24,
+      allDatabaseTabs: false,
+      shots: 1,
+      display: true,
+      mirror: true,
+      alternate: true,
+      rotate: true,
+      showStatSprite: true,
+      top: true,
+      controllable: true,
+      aiControllable: true,
+      predictTarget: true,
+      useAttackRange: true,
+      targetInterval: 40,
+      targetSwitchInterval: 70,
+      recoil: 1.5,
+      recoils: -1,
+      recoilTime: -1,
+      recoilPow: 1.8,
+      shootX: 0,
+      shootY: 3,
+      xRand: 0,
+      yRand: 0,
+      shadow: -1,
+      velocityRnd: 0,
+      extraVelocity: 0,
+      rotationLimit: 361,
+      shootWarmupSpeed: 0.1,
+      smoothReloadSpeed: 0.5,
+      linearWarmup: true,
+      soundPitchMin: 0.8,
+      soundPitchMax: 1,
+      ignoreRotation: false,
+      minShootVelocity: -1,
+      otherSide: -1,
+      layerOffset: 0,
+      shootStatusDuration: 300,
+      parts: [],
+      name: Sruza,
+      localizedName: Sruza,
+      shake: 0.2,
+      x: -7,
+      y: -5,
+      minWarmup: 1,
+      ejectEffect: casing2,
+      bullet: {
+       alwaysUnlocked: true,
+       credit: IambottokVN,
+       despawnEffect: explosion,
+       shootSound: none,
+       hitSound: explosion,
+       databaseTag: units,
+       allDatabaseTabs: true,
+       impact: true,
+       shootEffect: shootSmall,
+       hitEffect: explosion,
+       pierceArmor: true,
+       hitShake: 0.2,
+       fragRandomSpread: 50,
+       fragSpread: 20,
+       fragAngle: 5,
+       inaccuracy: 2,
+       scaleKeepVelocity: true,
+       damage: 40,
+       randomAngleOffset: 2,
+       despawnSound: explosion,
+       fragLifeMax: 2,
+       fragBullets: 2,
+       fragBullet: {
+        damage: 10,
+        hitEffect: explosion,
+        despawnEffect: explosion,
+        despawnSound: explosion,
+        hitSound: explosion,
+        scaleKeepVelocity: true,
+        splashDamage: 10,
+        splashDamageRadius: 16,
+        speed: 7,
+        lifetime: 15,
+        trailLength: 2,
+        width: 7,
+        height: 9,
+      },
+       trailLength: 2,
+       splashDamage: 10,
+       splashDamageRadius: 16,
+       height: 11,
+       width: 8,
+       trailWidth: 3,
+       speed: 7,
+       lifetime: 30,
+     },
+      shootOnDeath: true,
+      parentizeEffects: true,
+      databaseTag: turret,
+      shootCone: 10,
+      cooldownTime: 80,
+      shootSound: shootCyclone,
+      rotateSpeed: 5,
+      reload: 12,
+      inaccuracy: 3,
+    },
+  ]
+vulnerableWithPayloads: true
+targetUnderBlocks: false
+faceTarget: false
+singleTarget: true
+targetPriority: 2
+groundLayer: 60
+moveSoundVolume: 3
+moveSound: shipMove
