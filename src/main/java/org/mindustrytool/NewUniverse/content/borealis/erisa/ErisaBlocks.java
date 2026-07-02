@@ -414,14 +414,12 @@ public class ErisaBlocks {
             itemDuration = 90f;
             consumeItem(items.duras, 1);
             health = 400;
-            envEnabled = Env.any;
         }};
 
         yggdrasilCore = new PowerGenerator("yggdrasil-core") {{
             size = 4;
             powerProduction = 15f;
             health = 2000;
-            envEnabled = Env.any;
         }};
 
         yggdrasilArray = new ConsumeGenerator("yggdrasil-array") {{
@@ -430,7 +428,6 @@ public class ErisaBlocks {
             itemDuration = 120f;
             consumeItem(items.navitas, 1);
             health = 1200;
-            envEnabled = Env.any;
         }};
 
         // ── Glacius production ─────────────────────────────────────────
@@ -442,7 +439,6 @@ public class ErisaBlocks {
             consumeItem(items.duras, 1);
             consumePower(1f);
             health = 300;
-            envEnabled = Env.any;
         }};
 
         refinery = new GenericCrafter("refinery") {{
@@ -452,7 +448,6 @@ public class ErisaBlocks {
             consumeItems(new ItemStack(items.simus, 2), new ItemStack(items.duras, 1));
             consumePower(2f);
             health = 350;
-            envEnabled = Env.any;
         }};
 
         fabricator = new GenericCrafter("fabricator") {{
@@ -466,7 +461,6 @@ public class ErisaBlocks {
             );
             consumePower(4f);
             health = 800;
-            envEnabled = Env.any;
         }};
 
         assembly = new GenericCrafter("assembly") {{
@@ -480,19 +474,16 @@ public class ErisaBlocks {
             );
             consumePower(6f);
             health = 900;
-            envEnabled = Env.any;
         }};
 
         // ── Glacius distribution ───────────────────────────────────────
 
         conduit = new Conduit("conduit") {{
             health = 60;
-            envEnabled = Env.any;
         }};
 
         duct = new Duct("duct") {{
             health = 50;
-            envEnabled = Env.any;
         }};
     }
 }
