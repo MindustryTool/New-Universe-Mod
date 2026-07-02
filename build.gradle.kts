@@ -34,6 +34,9 @@ dependencies {
 
     compileOnly("org.jetbrains:annotations:26.0.1")
 
+    implementation("org.codejargon.feather:feather:1.0")
+    implementation("javax.inject:javax.inject:1")
+
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.1")
 }
