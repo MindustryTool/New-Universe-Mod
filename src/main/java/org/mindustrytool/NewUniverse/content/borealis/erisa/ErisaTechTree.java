@@ -146,7 +146,7 @@ public class ErisaTechTree {
 
             // Supporter line (Norse gods)
             node(erisaUnitTypes.mimir, () -> {
-                node(erisaUnitTypes.hermodr, () -> {
+                node(erisaUnitTypes.hermodrUnit, () -> {
                     node(erisaUnitTypes.bragi, () -> {
                         node(erisaUnitTypes.forseti, () -> {
                             node(erisaUnitTypes.tyr, () -> {

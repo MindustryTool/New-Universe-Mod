@@ -94,7 +94,7 @@ public class ErisaUnitTypes {
     // ████████████████████████████████████████████████████████████████████████
 
     public UnitType mimir;
-    public UnitType hermodr;
+    public UnitType hermodrUnit;
     public UnitType bragi;
     public UnitType forseti;
     public UnitType tyr;
@@ -1212,7 +1212,7 @@ public class ErisaUnitTypes {
             );
         }};
 
-        hermodr = new UnitType("hermodr") {{
+        hermodrUnit = new UnitType("hermodr-unit") {{
             constructor = UnitEntity::create;
             speed = 1.4f;
             health = 1400;
@@ -1593,7 +1593,11 @@ public class ErisaUnitTypes {
         );
 
         supporterLine = Seq.with(
-            mimir, hermodr, bragi, forseti, tyr, vidarr
+            mimir, hermodrUnit, bragi, forseti, tyr, vidarr
+        );
+
+        einherjarLine = Seq.with(
+            einherjar, berserkr, ulfhednar
         );
 
         einherjarLine = Seq.with(
@@ -1608,7 +1612,7 @@ public class ErisaUnitTypes {
 
             fenrir, garmr, draugr, ragnar,
             diphda, procyon, sirius,
-            mimir, hermodr, bragi, forseti, tyr, vidarr,
+            mimir, hermodrUnit, bragi, forseti, tyr, vidarr,
             einherjar, berserkr, ulfhednar
         );
     }
