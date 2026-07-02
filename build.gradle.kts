@@ -70,15 +70,28 @@ tasks.register("jarAndroid") {
             ?.firstOrNull { f -> File(f, "android.jar").exists() }
             ?: throw GradleException("No android.jar found in SDK platforms.")
 
-        val d8 = if (System.getProperty("os.name").lowercase().contains("windows")) "d8.bat" else "d8"
+        val buildToolsDir = File(androidHome, "build-tools")
+        val latestBuildTools = buildToolsDir.listFiles()
+            ?.sorted()
+            ?.reversed()
+            ?.firstOrNull()
+            ?: throw GradleException("No build-tools found in Android SDK.")
+
+        val isWindows = System.getProperty("os.name").lowercase().contains("windows")
+        val d8Name = if (isWindows) "d8.bat" else "d8"
+        val d8File = File(latestBuildTools, d8Name)
+
+        if (!d8File.exists()) {
+            throw GradleException("d8 tool not found at: ${d8File.absolutePath}")
+        }
 
         val libsDir = file("build/libs")
         val classpath = (configurations.compileClasspath.get().files
-            + configurations.runtimeClasspath.get().files
-            + File(platformRoot, "android.jar"))
+                + configurations.runtimeClasspath.get().files
+                + File(platformRoot, "android.jar"))
             .joinToString(" ") { "--classpath ${it.absolutePath}" }
 
-        val process = ProcessBuilder(d8, *classpath.split(" ").toTypedArray(),
+        val process = ProcessBuilder(d8File.absolutePath, *classpath.split(" ").toTypedArray(),
             "--min-api", "26",
             "--output", "${rootProject.name}-android.jar",
             "${rootProject.name}-desktop.jar")
