@@ -36,7 +36,12 @@ public class NewUniverseBlocks {
     public static OreBlock
             oreCryoCrystal,
             oreFrozenIron,
-            oreVolcanicSulfur;
+            oreVolcanicSulfur,
+            oreCophalast,
+            oreDuras,
+            oreNavitas,
+            orePausis,
+            oreVastum;
 
     // ── Turrets ─────────────────────────────────────────────────────
     public static ItemTurret
@@ -158,6 +163,36 @@ public class NewUniverseBlocks {
         oreVolcanicSulfur = new OreBlock("ore-volcanic-sulfur", NewUniverseItems.volcanicSulfur) {{
             oreThreshold = 0.85f;
             oreScale = 18;
+            supportsOverlay = true;
+        }};
+
+        oreCophalast = new OreBlock("ore-cophalast", NewUniverseItems.cophalast) {{
+            oreThreshold = 0.82f;
+            oreScale = 22;
+            supportsOverlay = true;
+        }};
+
+        oreDuras = new OreBlock("ore-duras", NewUniverseItems.duras) {{
+            oreThreshold = 0.88f;
+            oreScale = 20;
+            supportsOverlay = true;
+        }};
+
+        oreNavitas = new OreBlock("ore-navitas", NewUniverseItems.navitas) {{
+            oreThreshold = 0.85f;
+            oreScale = 24;
+            supportsOverlay = true;
+        }};
+
+        orePausis = new OreBlock("ore-pausis", NewUniverseItems.pausis) {{
+            oreThreshold = 0.9f;
+            oreScale = 18;
+            supportsOverlay = true;
+        }};
+
+        oreVastum = new OreBlock("ore-vastum", NewUniverseItems.vastum) {{
+            oreThreshold = 0.8f;
+            oreScale = 26;
             supportsOverlay = true;
         }};
 

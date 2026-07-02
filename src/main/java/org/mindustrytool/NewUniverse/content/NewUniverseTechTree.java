@@ -11,15 +11,58 @@ public class NewUniverseTechTree {
                 nodeProduce(NewUniverseItems.frozenIron, () -> {
                     nodeProduce(NewUniverseItems.volcanicSulfur, () -> {
                         nodeProduce(NewUniverseItems.cryoAlloy, () -> {
+                            nodeProduce(NewUniverseItems.duras, () -> {
+                                nodeProduce(NewUniverseItems.fortial, () -> {
+                                    nodeProduce(NewUniverseItems.farasAloy, () -> {
+                                        nodeProduce(NewUniverseItems.xearula, () -> {
+                                        });
+                                    });
+                                });
+                            });
+                            nodeProduce(NewUniverseItems.fabris, () -> {
+                                nodeProduce(NewUniverseItems.simus, () -> {
+                                    nodeProduce(NewUniverseItems.temperedGlass, () -> {
+                                    });
+                                });
+                            });
+                        });
+                    });
+                    nodeProduce(NewUniverseItems.rudis, () -> {
+                        nodeProduce(NewUniverseItems.aurum, () -> {
+                            nodeProduce(NewUniverseItems.horani, () -> {
+                            });
+                        });
+                        nodeProduce(NewUniverseItems.navitas, () -> {
                         });
                     });
                 });
+                nodeProduce(NewUniverseItems.pausis, () -> {
+                    nodeProduce(NewUniverseItems.flaxol, () -> {
+                    });
+                });
+            });
+            nodeProduce(NewUniverseItems.tentias, () -> {
+                nodeProduce(NewUniverseItems.viscosy, () -> {
+                    nodeProduce(NewUniverseItems.vastum, () -> {
+                    });
+                });
+            });
+            nodeProduce(NewUniverseItems.sand, () -> {
+            });
+            nodeProduce(NewUniverseItems.cophalast, () -> {
             });
 
             // ── Blocks (environmental) ────────────────────────────
             node(NewUniverseBlocks.glaciusIceWall);
             node(NewUniverseBlocks.glaciusCrystalWall);
             node(NewUniverseBlocks.glaciusVolcanicWall);
+
+            // ── Ores ──────────────────────────────────────────────
+            node(NewUniverseBlocks.oreCophalast);
+            node(NewUniverseBlocks.oreDuras);
+            node(NewUniverseBlocks.oreNavitas);
+            node(NewUniverseBlocks.orePausis);
+            node(NewUniverseBlocks.oreVastum);
 
             // ── Distribution ──────────────────────────────────────
             node(NewUniverseBlocks.glaciusConduit);

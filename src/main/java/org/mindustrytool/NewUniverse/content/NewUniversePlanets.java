@@ -3,7 +3,6 @@ package org.mindustrytool.NewUniverse.content;
 import arc.graphics.Color;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.content.Blocks;
-import mindustry.content.Planets;
 import mindustry.type.ItemStack;
 import mindustry.type.Planet;
 import org.mindustrytool.NewUniverse.planets.NewUniversePlanetGenerator;
@@ -34,10 +33,11 @@ public class NewUniversePlanets {
                     NewUniverseItems.frozenIron, 40
                 );
             };
-            atmosphereRadIn = 0.1f;
-            atmosphereRadOut = 0.5f;
+            atmosphereRadIn = 0.02f;
+            atmosphereRadOut = 0.08f;
             atmosphereColor = Color.valueOf("b07050");
             iconColor = Color.valueOf("b08050");
+            updateLighting = false;
         }};
     }
 }

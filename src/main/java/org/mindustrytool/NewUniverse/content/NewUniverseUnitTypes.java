@@ -22,7 +22,7 @@ public class NewUniverseUnitTypes {
         speed = 1.8f;
         health = 800;
         armor = 3f;
-        hitSize = 10;
+        hitSize = 14;
         flying = true;
         lowAltitude = true;
         engineSize = 2;
@@ -34,7 +34,7 @@ public class NewUniverseUnitTypes {
         speed = 1.6f;
         health = 3200;
         armor = 6f;
-        hitSize = 16;
+        hitSize = 22;
         flying = true;
         lowAltitude = true;
         engineSize = 3;
@@ -46,7 +46,7 @@ public class NewUniverseUnitTypes {
         speed = 1.4f;
         health = 6800;
         armor = 9f;
-        hitSize = 24;
+        hitSize = 30;
         flying = true;
         lowAltitude = true;
         engineSize = 4;
@@ -58,7 +58,7 @@ public class NewUniverseUnitTypes {
         speed = 1.2f;
         health = 12000;
         armor = 12f;
-        hitSize = 35;
+        hitSize = 38;
         flying = true;
         lowAltitude = true;
         engineSize = 5;
@@ -70,7 +70,7 @@ public class NewUniverseUnitTypes {
         speed = 1.0f;
         health = 19000;
         armor = 15f;
-        hitSize = 50;
+        hitSize = 65;
         flying = true;
         lowAltitude = true;
         engineSize = 6;
@@ -84,7 +84,7 @@ public class NewUniverseUnitTypes {
         speed = 0.6f;
         health = 2000;
         armor = 6f;
-        hitSize = 12;
+        hitSize = 16;
     }};
 
     public static UnitType glaciusYmir = new UnitType("glacius-ymir") {{
@@ -92,7 +92,7 @@ public class NewUniverseUnitTypes {
         speed = 0.55f;
         health = 5200;
         armor = 10f;
-        hitSize = 18;
+        hitSize = 24;
     }};
 
     public static UnitType glaciusThrymr = new UnitType("glacius-thrymr") {{
@@ -100,7 +100,7 @@ public class NewUniverseUnitTypes {
         speed = 0.5f;
         health = 10000;
         armor = 14f;
-        hitSize = 24;
+        hitSize = 32;
     }};
 
     public static UnitType glaciusBergelmir = new UnitType("glacius-bergelmir") {{
@@ -108,7 +108,7 @@ public class NewUniverseUnitTypes {
         speed = 0.45f;
         health = 17000;
         armor = 18f;
-        hitSize = 32;
+        hitSize = 42;
     }};
 
     public static UnitType glaciusSurtr = new UnitType("glacius-surtr") {{
@@ -116,7 +116,7 @@ public class NewUniverseUnitTypes {
         speed = 0.4f;
         health = 25000;
         armor = 22f;
-        hitSize = 42;
+        hitSize = 52;
     }};
 
     // ── Naval tier ────────────────────────────────────────────────────
@@ -126,7 +126,7 @@ public class NewUniverseUnitTypes {
         speed = 0.8f;
         health = 3000;
         armor = 5f;
-        hitSize = 14;
+        hitSize = 18;
         naval = true;
         trailLength = 12;
         rippleScale = 2;
@@ -137,7 +137,7 @@ public class NewUniverseUnitTypes {
         speed = 0.72f;
         health = 7000;
         armor = 8f;
-        hitSize = 20;
+        hitSize = 26;
         naval = true;
         trailLength = 18;
         rippleScale = 3;
@@ -148,7 +148,7 @@ public class NewUniverseUnitTypes {
         speed = 0.65f;
         health = 13000;
         armor = 12f;
-        hitSize = 28;
+        hitSize = 36;
         naval = true;
         trailLength = 24;
         rippleScale = 4;
@@ -159,7 +159,7 @@ public class NewUniverseUnitTypes {
         speed = 0.57f;
         health = 21000;
         armor = 16f;
-        hitSize = 40;
+        hitSize = 46;
         naval = true;
         trailLength = 32;
         rippleScale = 6;
@@ -170,7 +170,7 @@ public class NewUniverseUnitTypes {
         speed = 0.5f;
         health = 30000;
         armor = 20f;
-        hitSize = 58;
+        hitSize = 62;
         naval = true;
         trailLength = 40;
         rippleScale = 8;
@@ -184,7 +184,7 @@ public class NewUniverseUnitTypes {
         speed = 0.75f;
         health = 19000;
         armor = 14f;
-        hitSize = 55;
+        hitSize = 70;
         flying = true;
         lowAltitude = true;
         engineSize = 6;
@@ -197,7 +197,7 @@ public class NewUniverseUnitTypes {
         speed = 1.2f;
         health = 8000;
         armor = 8f;
-        hitSize = 38;
+        hitSize = 50;
         flying = true;
         lowAltitude = true;
         engineSize = 4;
@@ -210,7 +210,7 @@ public class NewUniverseUnitTypes {
         speed = 0.5f;
         health = 25000;
         armor = 18f;
-        hitSize = 60;
+        hitSize = 70;
         naval = true;
         rippleScale = 10;
         trailLength = 50;

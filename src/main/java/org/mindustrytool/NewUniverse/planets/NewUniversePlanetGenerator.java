@@ -37,7 +37,7 @@ public class NewUniversePlanetGenerator extends PlanetGenerator {
     // ── Height / temperature helpers ────────────────────────────────
 
     float rawHeight(Vec3 position) {
-        return Simplex.noise3d(seed, 6, 0.5, 1.0 / 3.0, position.x, position.y, position.z) * 2f;
+        return Simplex.noise3d(seed, 6, 0.5, 1.0 / 3.0, position.x, position.y, position.z) * 1.2f;
     }
 
     float getTemp(Vec3 position) {
@@ -73,7 +73,25 @@ public class NewUniversePlanetGenerator extends PlanetGenerator {
     @Override
     public void getColor(Vec3 position, Color out) {
         Block block = getBlock(position);
-        out.set(block.mapColor).a(1f - block.albedo);
+        float height = rawHeight(position);
+        float temp = getTemp(position);
+
+        // Base color from block's mapColor
+        out.set(block.mapColor);
+
+        // Mix in dust color (reddish-brown) based on height and temperature
+        // Low, warm areas get more red dust
+        // High, cold areas stay closer to the base color
+        Color dustColor = Color.valueOf("8B5E3C"); // warm brown
+        float dustFactor = Mathf.clamp((1f - height * 0.5f) * temp * 0.6f);
+        out.lerp(dustColor, dustFactor);
+
+        // Add slight red tint to warmer areas
+        Color redTint = Color.valueOf("C0754A");
+        float redFactor = Mathf.clamp(temp * 0.3f);
+        out.lerp(redTint, redFactor);
+
+        out.a(1f - block.albedo);
     }
 
     @Override
@@ -101,6 +119,27 @@ public class NewUniversePlanetGenerator extends PlanetGenerator {
 
             if (floor == NewUniverseBlocks.glaciusVent && noise(x, y, 2, 0.7, 40, 1) > 0.4f) {
                 ore = NewUniverseBlocks.oreVolcanicSulfur;
+            }
+
+            if ((floor == NewUniverseBlocks.glaciusRegolith || floor == NewUniverseBlocks.glaciusPermafrost)
+                    && noise(x, y, 2, 0.7, 50, 1) > 0.55f) {
+                ore = NewUniverseBlocks.oreDuras;
+            }
+
+            if (floor == NewUniverseBlocks.glaciusIce && noise(x, y, 2, 0.7, 45, 1) > 0.5f) {
+                ore = NewUniverseBlocks.oreCophalast;
+            }
+
+            if (floor == NewUniverseBlocks.glaciusCrust && noise(x, y, 2, 0.7, 35, 1) > 0.55f) {
+                ore = NewUniverseBlocks.oreNavitas;
+            }
+
+            if (floor == NewUniverseBlocks.glaciusPermafrost && noise(x, y, 2, 0.7, 30, 1) > 0.6f) {
+                ore = NewUniverseBlocks.orePausis;
+            }
+
+            if (floor == NewUniverseBlocks.glaciusSlagIce && noise(x, y, 2, 0.7, 40, 1) > 0.5f) {
+                ore = NewUniverseBlocks.oreVastum;
             }
         });
 
