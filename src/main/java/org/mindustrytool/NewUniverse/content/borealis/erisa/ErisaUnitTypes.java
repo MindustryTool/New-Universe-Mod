@@ -131,7 +131,7 @@ public class ErisaUnitTypes {
             speed = 1.8f;
             health = 800;
             armor = 3f;
-            hitSize = 40;
+            hitSize = 5f;
             flying = true;
             lowAltitude = true;
             engineSize = 2;
@@ -169,7 +169,7 @@ public class ErisaUnitTypes {
             speed = 1.6f;
             health = 3200;
             armor = 6f;
-            hitSize = 60;
+            hitSize = 8f;
             flying = true;
             lowAltitude = true;
             engineSize = 3;
@@ -206,7 +206,7 @@ public class ErisaUnitTypes {
             speed = 1.4f;
             health = 6800;
             armor = 9f;
-            hitSize = 87;
+            hitSize = 11f;
             flying = true;
             lowAltitude = true;
             engineSize = 4;
@@ -246,7 +246,7 @@ public class ErisaUnitTypes {
             speed = 1.2f;
             health = 12000;
             armor = 12f;
-            hitSize = 130;
+            hitSize = 16f;
             flying = true;
             lowAltitude = true;
             engineSize = 5;
@@ -279,7 +279,7 @@ public class ErisaUnitTypes {
             speed = 1.0f;
             health = 19000;
             armor = 15f;
-            hitSize = 196;
+            hitSize = 24f;
             flying = true;
             lowAltitude = true;
             engineSize = 6;
@@ -382,7 +382,7 @@ public class ErisaUnitTypes {
             speed = 0.6f;
             health = 2000;
             armor = 6f;
-            hitSize = 37;
+            hitSize = 5f;
             weapons = Seq.with(
                 new Weapon("jotunn-weapon") {{
                     reload = 35;
@@ -412,7 +412,7 @@ public class ErisaUnitTypes {
             speed = 0.55f;
             health = 5200;
             armor = 10f;
-            hitSize = 62;
+            hitSize = 8f;
             weapons = Seq.with(
                 new Weapon("ymir-weapon") {{
                     reload = 30;
@@ -444,7 +444,7 @@ public class ErisaUnitTypes {
             speed = 0.5f;
             health = 10000;
             armor = 14f;
-            hitSize = 74;
+            hitSize = 9f;
             weapons = Seq.with(
                 new Weapon("thrymr-weapon") {{
                     reload = 40;
@@ -477,7 +477,7 @@ public class ErisaUnitTypes {
             speed = 0.45f;
             health = 17000;
             armor = 18f;
-            hitSize = 118;
+            hitSize = 15f;
             weapons = Seq.with(
                 new Weapon("bergelmir-weapon") {{
                     reload = 50;
@@ -510,7 +510,7 @@ public class ErisaUnitTypes {
             speed = 0.4f;
             health = 25000;
             armor = 22f;
-            hitSize = 159;
+            hitSize = 20f;
             weapons = Seq.with(
                 new Weapon("surtr-weapon") {{
                     reload = 45;
@@ -553,7 +553,7 @@ public class ErisaUnitTypes {
             speed = 0.8f;
             health = 3000;
             armor = 5f;
-            hitSize = 50;
+            hitSize = 6f;
             naval = true;
             trailLength = 12;
             rippleScale = 2;
@@ -586,7 +586,7 @@ public class ErisaUnitTypes {
             speed = 0.72f;
             health = 7000;
             armor = 8f;
-            hitSize = 79;
+            hitSize = 10f;
             naval = true;
             trailLength = 18;
             rippleScale = 3;
@@ -621,7 +621,7 @@ public class ErisaUnitTypes {
             speed = 0.65f;
             health = 13000;
             armor = 12f;
-            hitSize = 79;
+            hitSize = 10f;
             naval = true;
             trailLength = 24;
             rippleScale = 4;
@@ -657,7 +657,7 @@ public class ErisaUnitTypes {
             speed = 0.57f;
             health = 21000;
             armor = 16f;
-            hitSize = 159;
+            hitSize = 20f;
             naval = true;
             trailLength = 32;
             rippleScale = 6;
@@ -697,7 +697,7 @@ public class ErisaUnitTypes {
             speed = 0.5f;
             health = 30000;
             armor = 20f;
-            hitSize = 223;
+            hitSize = 28f;
             naval = true;
             trailLength = 40;
             rippleScale = 8;
@@ -753,7 +753,7 @@ public class ErisaUnitTypes {
             speed = 0.75f;
             health = 19000;
             armor = 14f;
-            hitSize = 183;
+            hitSize = 23f;
             flying = true;
             lowAltitude = true;
             engineSize = 6;
@@ -856,7 +856,7 @@ public class ErisaUnitTypes {
             speed = 1.2f;
             health = 8000;
             armor = 8f;
-            hitSize = 130;
+            hitSize = 16f;
             flying = true;
             lowAltitude = true;
             engineSize = 4;
@@ -893,7 +893,7 @@ public class ErisaUnitTypes {
             speed = 0.5f;
             health = 25000;
             armor = 18f;
-            hitSize = 70;
+            hitSize = 9f;
             naval = true;
             rippleScale = 10;
             trailLength = 50;
@@ -989,7 +989,7 @@ public class ErisaUnitTypes {
             speed = 1.8f;
             health = 600;
             armor = 2f;
-            hitSize = 50;
+            hitSize = 6f;
             flying = true;
             lowAltitude = true;
             engineSize = 2;
@@ -1023,7 +1023,7 @@ public class ErisaUnitTypes {
             speed = 1.6f;
             health = 1800;
             armor = 4f;
-            hitSize = 79;
+            hitSize = 10f;
             flying = true;
             lowAltitude = true;
             engineSize = 3;
@@ -1057,7 +1057,7 @@ public class ErisaUnitTypes {
             speed = 1.4f;
             health = 5000;
             armor = 7f;
-            hitSize = 79;
+            hitSize = 10f;
             flying = true;
             lowAltitude = true;
             engineSize = 4;
@@ -1096,7 +1096,7 @@ public class ErisaUnitTypes {
             speed = 1.1f;
             health = 14000;
             armor = 12f;
-            hitSize = 159;
+            hitSize = 20f;
             flying = true;
             lowAltitude = true;
             engineSize = 6;
@@ -1132,7 +1132,7 @@ public class ErisaUnitTypes {
             speed = 2.5f;
             health = 400;
             armor = 1f;
-            hitSize = 40;
+            hitSize = 5f;
             flying = true;
             lowAltitude = true;
             engineSize = 1;
@@ -1171,7 +1171,7 @@ public class ErisaUnitTypes {
             speed = 2.2f;
             health = 1200;
             armor = 3f;
-            hitSize = 60;
+            hitSize = 8f;
             flying = true;
             lowAltitude = true;
             engineSize = 2;
@@ -1212,7 +1212,7 @@ public class ErisaUnitTypes {
             speed = 1.9f;
             health = 4000;
             armor = 6f;
-            hitSize = 87;
+            hitSize = 11f;
             flying = true;
             lowAltitude = true;
             engineSize = 3;
@@ -1272,7 +1272,7 @@ public class ErisaUnitTypes {
             speed = 1.6f;
             health = 500;
             armor = 2f;
-            hitSize = 30;
+            hitSize = 4f;
             flying = true;
             lowAltitude = true;
             engineSize = 1;
@@ -1310,7 +1310,7 @@ public class ErisaUnitTypes {
             speed = 1.4f;
             health = 1400;
             armor = 4f;
-            hitSize = 40;
+            hitSize = 5f;
             flying = true;
             lowAltitude = true;
             engineSize = 2;
@@ -1348,7 +1348,7 @@ public class ErisaUnitTypes {
             speed = 1.2f;
             health = 3800;
             armor = 7f;
-            hitSize = 60;
+            hitSize = 8f;
             flying = true;
             lowAltitude = true;
             engineSize = 3;
@@ -1391,7 +1391,7 @@ public class ErisaUnitTypes {
             speed = 1.0f;
             health = 8000;
             armor = 10f;
-            hitSize = 87;
+            hitSize = 11f;
             flying = true;
             lowAltitude = true;
             engineSize = 4;
@@ -1427,7 +1427,7 @@ public class ErisaUnitTypes {
             speed = 0.9f;
             health = 16000;
             armor = 14f;
-            hitSize = 118;
+            hitSize = 15f;
             flying = true;
             lowAltitude = true;
             engineSize = 5;
@@ -1488,7 +1488,7 @@ public class ErisaUnitTypes {
             speed = 0.7f;
             health = 30000;
             armor = 20f;
-            hitSize = 183;
+            hitSize = 23f;
             flying = true;
             lowAltitude = true;
             engineSize = 7;
@@ -1573,7 +1573,7 @@ public class ErisaUnitTypes {
             speed = 0.65f;
             health = 900;
             armor = 4f;
-            hitSize = 34;
+            hitSize = 4f;
             weapons = Seq.with(
                 new Weapon("einherjar-weapon") {{
                     reload = 30;
@@ -1602,7 +1602,7 @@ public class ErisaUnitTypes {
             speed = 0.58f;
             health = 2400;
             armor = 7f;
-            hitSize = 43;
+            hitSize = 5f;
             weapons = Seq.with(
                 new Weapon("berserkr-weapon") {{
                     reload = 28;
@@ -1633,7 +1633,7 @@ public class ErisaUnitTypes {
             speed = 0.5f;
             health = 6000;
             armor = 11f;
-            hitSize = 51;
+            hitSize = 6f;
             weapons = Seq.with(
                 new Weapon("ulfhednar-weapon") {{
                     reload = 35;
