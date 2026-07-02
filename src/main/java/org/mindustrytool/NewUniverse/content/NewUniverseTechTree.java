@@ -21,6 +21,42 @@ public class NewUniverseTechTree {
             node(NewUniverseBlocks.glaciusCrystalWall);
             node(NewUniverseBlocks.glaciusVolcanicWall);
 
+            // ── Distribution ──────────────────────────────────────
+            node(NewUniverseBlocks.glaciusConduit);
+            node(NewUniverseBlocks.glaciusDuct);
+
+            // ── Power ─────────────────────────────────────────────
+            node(NewUniverseBlocks.glaciusYggdrasilGenerator, () -> {
+                node(NewUniverseBlocks.glaciusYggdrasilArray, () -> {
+                    node(NewUniverseBlocks.glaciusYggdrasilCore);
+                });
+            });
+
+            // ── Production ────────────────────────────────────────
+            node(NewUniverseBlocks.glaciusFoundry, () -> {
+                node(NewUniverseBlocks.glaciusRefinery, () -> {
+                    node(NewUniverseBlocks.glaciusFabricator, () -> {
+                        node(NewUniverseBlocks.glaciusAssembly);
+                    });
+                });
+            });
+
+            // ── Turrets ───────────────────────────────────────────
+            node(NewUniverseBlocks.glaciusMjolnir, () -> {
+                node(NewUniverseBlocks.glaciusGramr, () -> {
+                    node(NewUniverseBlocks.glaciusHermodr, () -> {
+                        node(NewUniverseBlocks.glaciusSvafnir);
+                        node(NewUniverseBlocks.glaciusLaevateinn);
+                        node(NewUniverseBlocks.glaciusGjallarhorn);
+                    });
+                    node(NewUniverseBlocks.glaciusGungnir, () -> {
+                        node(NewUniverseBlocks.glaciusLopt, () -> {
+                            node(NewUniverseBlocks.glaciusNidhoggr);
+                        });
+                    });
+                });
+            });
+
             // ── Air tier units ────────────────────────────────────
             node(NewUniverseUnitTypes.glaciusHerja, () -> {
                 node(NewUniverseUnitTypes.glaciusEir, () -> {
