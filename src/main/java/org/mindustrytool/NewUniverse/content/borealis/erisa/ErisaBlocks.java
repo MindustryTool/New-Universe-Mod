@@ -22,7 +22,7 @@ import javax.inject.Singleton;
 
 @Singleton
 @RequiredArgsConstructor(onConstructor_ = @Inject)
-public class ErisaBlocks {
+public class ErisaBlocks { 
 
     // ── Floors ──────────────────────────────────────────────────────────
     public Floor
