@@ -1,4 +1,4 @@
-# Frogg — Mindustry v8 Java Mod
+# New Universe — Mindustry v8 Java Mod
 
 > Project memory for AI coding assistants (OpenCode, Claude Code, Cursor, Copilot).
 > This file is read automatically. Keep it under 300 lines — prune rules that no
@@ -6,19 +6,20 @@
 
 ## Project Overview
 
-Frogg is a Mindustry v8 Java mod that adds custom units, items, weapons, and
+New Universe is a Mindustry v8 Java mod that adds custom units, items, weapons, and
 gameplay content. It started as a JSON/HJSON mod and is being migrated to a
 full Java mod for access to the complete Mindustry API.
 
 **Target**: Mindustry v8 (build 158+, stable)
-**Mod ID**: `frogg` (internal name used for sprite prefixing and content registration)
+**Mod ID**: `new-universe` (internal name used for sprite prefixing and content registration)
 
 ## Stack
 
 - **Language**: Java 17 (source & target)
-- **Build**: Gradle 8.x with `gradlew` wrapper
-- **Game API**: Mindustry v158.1 + Arc framework (`compileOnly` — never bundled)
-- **Content format**: HJSON files in `content/` (auto-loaded) + programmatic Java registration
+- **Build**: Gradle 8.x with `gradlew` wrapper, Kotlin DSL
+- **Game API**: Mindustry v158 + Arc framework (`compileOnly` — never bundled)
+- **Shadow plugin**: `com.gradleup.shadow` v9.2.2 for JAR packaging
+- **Content format**: Programmatic Java registration via static `load()` methods
 - **Distribution**: Single cross-platform JAR (Desktop + Android)
 
 ## Commands
@@ -27,64 +28,65 @@ full Java mod for access to the complete Mindustry API.
 > Already set permanently if the scaffold script was run.
 
 ```bash
-# Build desktop JAR
-./gradlew jar              # → build/libs/froggDesktop.jar
+# Build desktop JAR (shadowJar)
+./gradlew shadowJar         # → build/libs/new-universe-desktop.jar
 
 # Build cross-platform JAR (requires Android SDK)
-./gradlew deploy           # → build/libs/frogg.jar
+./gradlew deploy            # → build/libs/new-universe.jar
+
+# Build + install + launch game
+./gradlew runGame           # builds, copies to Mindustry mods, launches
 
 # Clean build artifacts
 ./gradlew clean
-
-# Test in Mindustry
-# Copy build/libs/frogg.jar to your Mindustry mods folder and launch the game
 ```
 
 ## Project Structure
 
 ```
-Frogg/
-├── mod.hjson              # Mod metadata: name, main class, minGameVersion, java:true
-├── build.gradle           # Gradle build config (compileOnly deps, jar/deploy tasks)
-├── settings.gradle        # Root project name
-├── AGENTS.md              # ← You are here
-├── CLAUDE.md              # → @AGENTS.md (symlink target for Claude Code)
-├── src/com/frogg/         # Java source
-│   └── FroggMod.java      # Entry point — extends mindustry.mod.Mod
-├── content/               # HJSON content definitions (AUTO-LOADED by game)
-│   ├── items/             # Item type definitions (.hjson)
-│   └── units/             # Unit type definitions (.hjson)
-├── sprites/               # Sprite assets (auto-prefixed with "frogg-")
-│   └── units/             # Unit sprites
-└── assets/                # Static assets bundled into JAR
-    └── sprites/           # Custom sprites referenced from Java code
+new-universe/
+├── mod.hjson               # Mod metadata: name, main class, minGameVersion, java:true
+├── build.gradle.kts        # Gradle build (Kotlin DSL, shadow plugin)
+├── settings.gradle.kts     # Root project name
+├── gradle.properties       # JVM args (+ Jabel module exports)
+├── AGENTS.md               # ← You are here
+├── src/main/java/org/mindustrytool/NewUniverse/
+│   ├── NewUniverseMod.java # Entry point — extends mindustry.mod.Mod
+│   ├── content/            # Game content definitions (blocks/items/units/planets/tech)
+│   └── planets/            # Planet generator (procedural terrain)
+└── src/main/resources/
+    ├── mod.hjson           # Mod metadata (also at root — keep both)
+    ├── sprites/units/glacius/  # Organized unit sprites by category
+    └── unsorted/            # Raw/unused sprite assets (archival)
 ```
 
 ## Key Architecture Rules
 
-### Content Registration — Two Approaches
+### Content Registration — Two Patterns
 
-**Approach A: HJSON files (PREFERRED for existing content)**
-Drop `.hjson` files into `content/{items,units,blocks,liquids,...}/`.
-The game auto-loads them via `Mods.loadContent()` — NO Java code needed.
-
-**Approach B: Programmatic (for custom logic)**
-Register in `FroggMod.loadContent()` by calling static `load()` methods:
+**Pattern A: Static field initializers (items, blocks, units, planets, tech tree)**
+Content is created via double-brace initialization on static fields. Registration
+happens automatically through the constructor. `load()` methods exist only to
+force class loading:
 ```java
-@Override
-public void loadContent() {
-    FroggItems.load();   // Programmatic items
-    FroggBlocks.load();  // Programmatic blocks
-}
-```
-Create content by instantiating classes — registration is automatic via the
-constructor name:
-```java
-public static Item myItem = new Item("my-item", Color.valueOf("ff0000")) {{
-    hardness = 2;
-    cost = 3;
+public static Item cryoCrystal = new Item("cryo-crystal", Color.valueOf("60a0ff")) {{
+    hardness = 3;
+    cost = 4;
 }};
+public static void load() { /* static init trigger */ }
 ```
+Called from `NewUniverseMod.loadContent()`:
+```java
+NewUniverseItems.load();
+NewUniverseBlocks.load();
+NewUniverseUnitTypes.load();
+NewUniversePlanets.load();
+NewUniverseTechTree.load();
+```
+
+**Pattern B: Manual instantiation in PlanetGenerator**
+The generator class creates its terrain array statically. Its sole `load()`
+method is an empty stub for pattern consistency.
 
 ### Dependency Scope — CRITICAL RULE
 
@@ -101,7 +103,7 @@ public static Item myItem = new Item("my-item", Color.valueOf("ff0000")) {{
 | Global game state | `mindustry.Vars` (world, player, state, content, ui, net) |
 | Event system | `mindustry.game.EventType.*` + `Events.on()` |
 | Utility collections | `arc.struct.Seq<T>` (NOT `ArrayList`) |
-| Sprites in Java | `Core.atlas.find("frogg-sprite-name")` (prefixed with mod name) |
+| Sprites in Java | `Core.atlas.find("new-universe-sprite-name")` (prefixed with mod name) |
 
 ### Key Classes for Modding
 
@@ -125,11 +127,11 @@ Full class hierarchy: https://github.com/Anuken/Mindustry/blob/master/core/src/m
 
 ## Coding Conventions
 
-- **Package**: `com.frogg` — keep everything under this namespace
-- **Class naming**: PascalCase. Content holder classes: `FroggItems`, `FroggUnits`, `FroggBlocks`
+- **Package**: `org.mindustrytool.NewUniverse` — keep everything under this namespace
+- **Class naming**: PascalCase. Content holder classes: `NewUniverseItems`, `NewUniverseUnits`, `NewUniverseBlocks`
 - **Content name**: kebab-case strings (`"my-unit-name"`) — must match sprite filenames
 - **Java version**: Use Java 17 features freely (records, switch expressions, text blocks)
-- **Imports**: No wildcard imports. Organize: `mindustry.*` → `arc.*` → `com.frogg.*`
+- **Imports**: No wildcard imports. Organize: `mindustry.*` → `arc.*` → `org.mindustrytool.NewUniverse.*`
 - **Logging**: Use `arc.util.Log.info/warn/err` — NOT `System.out.println`
 
 ## v8-Specific Gotchas
@@ -149,11 +151,12 @@ Full class hierarchy: https://github.com/Anuken/Mindustry/blob/master/core/src/m
 - Name content in kebab-case matching sprite filenames
 - Use `Seq<T>` for collections, not `ArrayList`
 - Log with `arc.util.Log`, not `System.out`
+- Use `shadowJar` for building (not the plain `jar` task)
 - Check `!player.dead()` before accessing `player.unit()`
 
 ### ⚠️ Ask Before Doing
 - Adding new Gradle dependencies (especially non-compileOnly)
-- Modifying `build.gradle` (affects cross-platform compatibility)
+- Modifying `build.gradle.kts` (affects cross-platform compatibility)
 - Changing mod name in `mod.hjson` (breaks sprite prefixing)
 - Upgrading `mindustryVersion` (API breakage risk)
 
@@ -161,8 +164,8 @@ Full class hierarchy: https://github.com/Anuken/Mindustry/blob/master/core/src/m
 - Use `implementation` scope for Mindustry/Arc dependencies
 - Use `@ts-ignore`, `@SuppressWarnings("all")`, or empty catch blocks
 - Reference v7-only APIs (unit ammo, `Core.keybinds`, `itemWhitelist`)
-- Delete the `content/` or `sprites/` directories — they're bundled into the JAR
-- Export the JAR without running `./gradlew jar` or `./gradlew deploy`
+- Delete `src/main/resources/` — it contains the bundled sprites and mod metadata
+- Export the JAR without running `./gradlew shadowJar` or `./gradlew deploy`
 
 ## Research References
 
