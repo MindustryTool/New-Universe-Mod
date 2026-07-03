@@ -16,10 +16,10 @@ import static mindustry.Vars.state;
 public class ErisaPlanetGenerator extends PlanetGenerator {
     Block[][] terrain;
 
-    // custom blocks (optional, falls back to vanilla)
-    public Block iceFloor, snowFloor, stoneFloor, redFloor, darkDirtFloor, darkblueFloor;
-    public Block oreCopper, oreLead, oreTitanium;
-    public Block wallBlock;
+    public Block waterBlock;
+    public Block iceFloor, stoneFloor, redFloor, darkDirtFloor, darkblueFloor, blueCrystalFloor, denseBlueCrystalFloor;
+    public Block oreCophalast, oreDuras, oreNavitas, oreVastum, oreWallPausis;
+    public Block stoneWall, redWall, redDirtWall, iceWall, darkblueWall;
 
     public ErisaPlanetGenerator() {
         baseSeed = 100;
@@ -27,24 +27,33 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
     }
 
     public void useDefaults() {
+        waterBlock = Blocks.water;
         iceFloor = Blocks.ice;
-        snowFloor = Blocks.snow;
         stoneFloor = Blocks.stone;
         redFloor = Blocks.stone;
         darkDirtFloor = Blocks.stone;
         darkblueFloor = Blocks.stone;
-        oreCopper = Blocks.oreCopper;
-        oreLead = Blocks.oreLead;
-        oreTitanium = Blocks.oreTitanium;
-        wallBlock = Blocks.stoneWall;
+        blueCrystalFloor = Blocks.stone;
+        denseBlueCrystalFloor = Blocks.stone;
+        oreCophalast = Blocks.oreCopper;
+        oreDuras = Blocks.oreLead;
+        oreNavitas = Blocks.oreTitanium;
+        oreVastum = Blocks.oreThorium;
+        oreWallPausis = Blocks.oreScrap;
+        stoneWall = Blocks.stoneWall;
+        redWall = Blocks.stoneWall;
+        redDirtWall = Blocks.stoneWall;
+        iceWall = Blocks.iceWall;
+        darkblueWall = Blocks.stoneWall;
         rebuildTerrain();
     }
 
     public void rebuildTerrain() {
         terrain = new Block[][]{
-            {Blocks.water, iceFloor, snowFloor, stoneFloor},
-            {Blocks.water, iceFloor, stoneFloor, stoneFloor},
-            {Blocks.water, stoneFloor, stoneFloor, stoneFloor},
+            {waterBlock, iceFloor, stoneFloor, darkblueFloor, denseBlueCrystalFloor},
+            {waterBlock, iceFloor, stoneFloor, blueCrystalFloor, denseBlueCrystalFloor},
+            {waterBlock, blueCrystalFloor, darkDirtFloor, darkblueFloor, stoneFloor},
+            {waterBlock, redFloor, darkDirtFloor, stoneFloor, stoneFloor},
         };
     }
 
@@ -61,10 +70,8 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
     Block getBlock(Vec3 position) {
         float height = rawHeight(position);
         float temp = getTemp(position);
-
         int heightIdx = Mathf.clamp((int) (height * terrain[0].length), 0, terrain[0].length - 1);
         int tempIdx = Mathf.clamp((int) (temp * terrain.length), 0, terrain.length - 1);
-
         return terrain[tempIdx][heightIdx];
     }
 
@@ -85,17 +92,13 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
         Block block = getBlock(position);
         float height = rawHeight(position);
         float temp = getTemp(position);
-
         out.set(block.mapColor);
-
         Color dustColor = Color.valueOf("8B5E3C");
         float dustFactor = Mathf.clamp((1f - height * 0.5f) * temp * 0.6f);
         out.lerp(dustColor, dustFactor);
-
         Color redTint = Color.valueOf("C0754A");
         float redFactor = Mathf.clamp(temp * 0.3f);
         out.lerp(redTint, redFactor);
-
         out.a(1f - block.albedo);
     }
 
@@ -108,32 +111,31 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
     protected void generate() {
         cells(4);
         distort(10f, 12f);
-
         pass((x, y) -> {
             if (!floor.asFloor().hasSurface()) return;
-
             if ((floor == stoneFloor || floor == redFloor || floor == darkblueFloor)
                     && noise(x, y, 2, 0.7, 50, 1) > 0.55f) {
-                ore = oreCopper;
+                ore = oreCophalast;
             }
-
+            if ((floor == blueCrystalFloor || floor == denseBlueCrystalFloor)
+                    && noise(x, y, 2, 0.7, 45, 1) > 0.5f) {
+                ore = oreDuras;
+            }
             if (floor == iceFloor && noise(x, y, 2, 0.7, 45, 1) > 0.5f) {
-                ore = oreLead;
+                ore = oreNavitas;
             }
-
-            if (floor == snowFloor && noise(x, y, 2, 0.7, 35, 1) > 0.55f) {
-                ore = oreTitanium;
+            if (floor == darkDirtFloor && noise(x, y, 2, 0.7, 35, 1) > 0.55f) {
+                ore = oreVastum;
+            }
+            if (floor == darkblueFloor && noise(x, y, 2, 0.7, 40, 1) > 0.5f) {
+                ore = oreWallPausis;
             }
         });
-
         trimDark();
         median(2);
-
         int spawnX = width / 2, spawnY = height / 2;
         inverseFloodFill(tiles.getn(spawnX, spawnY));
-
         Schematics.placeLaunchLoadout(spawnX, spawnY);
-
         state.rules.env = Env.terrestrial | Env.oxygen;
         state.rules.waves = true;
         state.rules.waveSpacing = 1200f;

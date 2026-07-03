@@ -28,6 +28,25 @@ public class BorealisPlanets {
         }};
 
         ErisaPlanetGenerator gen = new ErisaPlanetGenerator();
+        gen.waterBlock = Blocks.water;
+        gen.iceFloor = contents.iceFloor;
+        gen.stoneFloor = contents.stoneFloor;
+        gen.redFloor = contents.redFloor;
+        gen.darkDirtFloor = contents.darkDirtFloor;
+        gen.darkblueFloor = contents.darkblueFloor;
+        gen.blueCrystalFloor = contents.blueCrystalFloor;
+        gen.denseBlueCrystalFloor = contents.denseBlueCrystalFloor;
+        gen.oreCophalast = contents.oreCophalast;
+        gen.oreDuras = contents.oreDuras;
+        gen.oreNavitas = contents.oreNavitas;
+        gen.oreVastum = contents.oreVastum;
+        gen.oreWallPausis = contents.oreWallPausis;
+        gen.stoneWall = contents.wallBlock;
+        gen.redWall = contents.redWall;
+        gen.redDirtWall = contents.redDirtWall;
+        gen.iceWall = contents.iceWall;
+        gen.darkblueWall = contents.darkblueWall;
+        gen.rebuildTerrain();
 
         erisa = new Planet("erisa", borealisSun, 1.2f, 4) {{
             generator = gen;
