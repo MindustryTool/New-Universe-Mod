@@ -29,7 +29,11 @@ public class BorealisIndusUnitTypes {
     public UnitType cetus;
 
     public void loadContent() {
-        indus(); imperi(); sruza(); crater(); cetus();
+        indus();
+        imperi();
+        sruza();
+        crater();
+        cetus();
     }
 
     private void indus() {

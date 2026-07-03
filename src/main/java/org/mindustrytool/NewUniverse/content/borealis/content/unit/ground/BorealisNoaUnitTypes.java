@@ -32,7 +32,11 @@ public class BorealisNoaUnitTypes {
     public UnitType xyrus;
 
     public void loadContent() {
-        noa(); external(); siriusMech(); ion(); xyrus();
+        noa();
+        external();
+        siriusMech();
+        ion();
+        xyrus();
     }
 
     private void noa() {
