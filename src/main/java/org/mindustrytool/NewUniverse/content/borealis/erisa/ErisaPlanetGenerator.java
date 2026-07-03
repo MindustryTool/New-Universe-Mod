@@ -4,6 +4,7 @@ import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.math.geom.Vec3;
 import arc.util.noise.Simplex;
+import mindustry.content.Blocks;
 import mindustry.game.Schematics;
 import mindustry.world.TileGen;
 import mindustry.maps.generators.PlanetGenerator;
@@ -13,30 +14,17 @@ import mindustry.world.meta.Env;
 import static mindustry.Vars.state;
 
 public class ErisaPlanetGenerator extends PlanetGenerator {
-    private final ErisaBlocks blocks;
-
-    // 2D terrain array indexed as terrain[tempBand][heightBand]
-    // Height bands (4): deepWater, shallowWater, land, high
-    // Temp bands  (3): cold, temperate, warm
     Block[][] terrain;
 
-    {
+    public ErisaPlanetGenerator() {
         baseSeed = 100;
-    }
 
-    public ErisaPlanetGenerator(ErisaBlocks blocks) {
-        this.blocks = blocks;
         terrain = new Block[][]{
-            // cold     — deepIce,   ice,       snow,       permafrost
-            {blocks.deepIce, blocks.ice, blocks.snow, blocks.permafrost},
-            // temperate — deepIce,   ice,       regolith,   permafrost
-            {blocks.deepIce, blocks.ice, blocks.regolith, blocks.permafrost},
-            // warm     — slagIce,   vent,      vent,       crust
-            {blocks.slagIce, blocks.vent, blocks.vent, blocks.crust},
+            {Blocks.water, Blocks.ice, Blocks.snow, Blocks.stone},
+            {Blocks.water, Blocks.ice, Blocks.stone, Blocks.stone},
+            {Blocks.water, Blocks.stone, Blocks.stone, Blocks.stone},
         };
     }
-
-    // ── Height / temperature helpers ────────────────────────────────
 
     float rawHeight(Vec3 position) {
         return Simplex.noise3d(seed, 6, 0.5, 1.0 / 3.0, position.x, position.y, position.z) * 1.2f;
@@ -44,8 +32,8 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
 
     float getTemp(Vec3 position) {
         float latitude = Math.abs(position.y);
-        float tnoise = Simplex.noise3d(seed, 4, 0.5, 1.0 / 2.0, position.x, position.y + 999f, position.z);
-        return Mathf.clamp(latitude + tnoise * 0.3f);
+        float noise = Simplex.noise3d(seed, 4, 0.5, 1.0 / 2.0, position.x, position.y + 999f, position.z);
+        return Mathf.clamp(latitude + noise * 0.3f);
     }
 
     Block getBlock(Vec3 position) {
@@ -57,8 +45,6 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
 
         return terrain[tempIdx][heightIdx];
     }
-
-    // ── PlanetGenerator overrides ────────────────────────────────────
 
     @Override
     public void genTile(Vec3 position, TileGen gen) {
@@ -78,15 +64,12 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
         float height = rawHeight(position);
         float temp = getTemp(position);
 
-        // Base color from block's mapColor
         out.set(block.mapColor);
 
-        // Mix in dust color (reddish-brown) based on height and temperature
         Color dustColor = Color.valueOf("8B5E3C");
         float dustFactor = Mathf.clamp((1f - height * 0.5f) * temp * 0.6f);
         out.lerp(dustColor, dustFactor);
 
-        // Add slight red tint to warmer areas
         Color redTint = Color.valueOf("C0754A");
         float redFactor = Mathf.clamp(temp * 0.3f);
         out.lerp(redTint, redFactor);
@@ -104,29 +87,20 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
         cells(4);
         distort(10f, 12f);
 
-        // ── Custom ore pass ──────────────────────────────────────
         pass((x, y) -> {
             if (!floor.asFloor().hasSurface()) return;
 
-            if ((floor == blocks.regolith || floor == blocks.permafrost)
+            if ((floor == Blocks.stone)
                     && noise(x, y, 2, 0.7, 50, 1) > 0.55f) {
-                ore = blocks.oreDuras;
+                ore = Blocks.oreCopper;
             }
 
-            if (floor == blocks.ice && noise(x, y, 2, 0.7, 45, 1) > 0.5f) {
-                ore = blocks.oreCophalast;
+            if (floor == Blocks.ice && noise(x, y, 2, 0.7, 45, 1) > 0.5f) {
+                ore = Blocks.oreLead;
             }
 
-            if (floor == blocks.crust && noise(x, y, 2, 0.7, 35, 1) > 0.55f) {
-                ore = blocks.oreNavitas;
-            }
-
-            if (floor == blocks.permafrost && noise(x, y, 2, 0.7, 30, 1) > 0.6f) {
-                ore = blocks.orePausis;
-            }
-
-            if (floor == blocks.slagIce && noise(x, y, 2, 0.7, 40, 1) > 0.5f) {
-                ore = blocks.oreVastum;
+            if (floor == Blocks.snow && noise(x, y, 2, 0.7, 35, 1) > 0.55f) {
+                ore = Blocks.oreTitanium;
             }
         });
 
