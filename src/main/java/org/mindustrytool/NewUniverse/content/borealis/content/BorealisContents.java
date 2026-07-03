@@ -160,6 +160,9 @@ public class BorealisContents {
     public Block lucis;
     public Block novolary;
 
+    // test block
+    public Block testFloor;
+
     // environment props
     public Block boulder;
     public Block redBoulder;
@@ -288,6 +291,7 @@ public class BorealisContents {
         novolary = turretBlocks.novolary;
 
         environmentBlocks.loadContent();
+        testFloor = environmentBlocks.testFloor;
         boulder = environmentBlocks.boulder;
         redBoulder = environmentBlocks.redBoulder;
         iceBoulder = environmentBlocks.iceBoulder;

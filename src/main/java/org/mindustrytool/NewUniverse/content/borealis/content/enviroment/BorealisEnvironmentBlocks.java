@@ -1,6 +1,8 @@
 package org.mindustrytool.NewUniverse.content.borealis.content.enviroment;
 
+import arc.graphics.Color;
 import mindustry.world.Block;
+import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.Prop;
 
 import javax.inject.Inject;
@@ -12,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class BorealisEnvironmentBlocks {
 
+    // test block from omaloon pattern
+    public Block testFloor;
+
     // props (decorative, no collision)
     public Block boulder;
     public Block redBoulder;
@@ -22,7 +27,12 @@ public class BorealisEnvironmentBlocks {
     public Block blueCrystalBlocks;
 
     public void loadContent() {
+        test();
         props();
+    }
+
+    private void test() {
+        testFloor = new Floor("test-floor", 3) {{ mapColor.set(Color.valueOf("808080")); }};
     }
 
     private void props() {
