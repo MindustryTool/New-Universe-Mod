@@ -3,11 +3,10 @@ package org.mindustrytool.NewUniverse.content.borealis;
 import arc.graphics.Color;
 import lombok.RequiredArgsConstructor;
 import mindustry.content.Blocks;
+import mindustry.content.Items;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.type.ItemStack;
 import mindustry.type.Planet;
-import org.mindustrytool.NewUniverse.content.borealis.erisa.ErisaBlocks;
-import org.mindustrytool.NewUniverse.content.borealis.erisa.ErisaItems;
 import org.mindustrytool.NewUniverse.content.borealis.erisa.ErisaPlanetGenerator;
 
 import javax.inject.Inject;
@@ -16,9 +15,6 @@ import javax.inject.Singleton;
 @Singleton
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class BorealisPlanets {
-    private final ErisaItems erisaItems;
-    private final ErisaBlocks erisaBlocks;
-
     public Planet borealisSun;
     public Planet erisa;
 
@@ -29,7 +25,7 @@ public class BorealisPlanets {
         }};
 
         erisa = new Planet("erisa", borealisSun, 1.2f, 4) {{
-            generator = new ErisaPlanetGenerator(erisaBlocks);
+            generator = new ErisaPlanetGenerator();
             sectorSeed = 42;
             startSector = 10;
             defaultCore = Blocks.coreShard;
@@ -39,8 +35,8 @@ public class BorealisPlanets {
             ruleSetter = r -> {
                 r.waves = true;
                 r.loadout = ItemStack.list(
-                        erisaItems.duras, 40,
-                        erisaItems.simus, 20
+                    Items.copper, 40,
+                    Items.lead, 20
                 );
             };
             atmosphereRadIn = 0.02f;
