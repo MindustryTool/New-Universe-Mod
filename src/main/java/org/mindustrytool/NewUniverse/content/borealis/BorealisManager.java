@@ -1,7 +1,7 @@
 package org.mindustrytool.NewUniverse.content.borealis;
 
 import lombok.RequiredArgsConstructor;
-import org.mindustrytool.NewUniverse.content.borealis.content.BorealisContentManger;
+import org.mindustrytool.NewUniverse.content.borealis.content.BorealisContents;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -10,10 +10,10 @@ import javax.inject.Singleton;
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class BorealisManager {
     private final BorealisPlanets borealisPlanets;
-    private final BorealisContentManger borealisContentManger;
+    private final BorealisContents borealisContents;
 
     public void loadContent() {
-        borealisContentManger.loadContent();
+        borealisContents.loadContent();
 
         borealisPlanets.loadContent();
     }
