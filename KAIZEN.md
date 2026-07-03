@@ -155,28 +155,151 @@ Mindustry dùng `pack.json` với:
 
 ```json
 {
-  flattenPaths: true,           // Bỏ qua cấu trúc thư mục, chỉ dùng filename
-  combineSubdirectories: true,  // Gộp tất cả subdirectory vào 1 atlas
-  stripWhitespaceCenter: true   // Tự động crop whitespace
+  flattenPaths: true,
+  combineSubdirectories: true
 }
 ```
 
-**Hệ quả**: Đường dẫn file chỉ quan trọng cho atlas page routing, KHÔNG ảnh hưởng đến 
-region name. `mjolnir.png` ở bất kỳ đâu trong `sprites/` đều cho kết quả giống nhau.
+**`flattenPaths: true`**: Cấu trúc thư mục bị flatten — chỉ filename quyết định region name.
+Ví dụ: `sprites/boarelis/enviroment/floor/ice-floor.png` → region name `ice-floor`.
 
-### Atlas Page Routing
+**`combineSubdirectories: true`**: Tất cả thư mục con được gộp vào cùng 1 atlas page.
 
-Đường dẫn quyết định sprite vào page nào (quan trọng cho environment tiles):
+### Atlas Page Routing — CRITICAL
 
-| Path contains | Atlas Page |
+`Mods.getPage()` trong Mindustry source quyết định sprite vào page nào dựa trên **đường dẫn file**:
+
+```java
+private PageType getPage(Fi file){
+    String path = file.path();
+    return
+        path.contains("sprites/blocks/environment") ? PageType.environment :
+        path.contains("sprites/rubble") ? PageType.rubble :
+        path.contains("sprites/ui") ? PageType.ui :
+        PageType.main;
+}
+```
+
+| Path contains → | Atlas Page |
 |---|---|
 | `sprites/blocks/environment` | `environment` |
 | `sprites/rubble` | `rubble` |
 | `sprites/ui` | `ui` |
 | Everything else | `main` |
 
-**Khuyến nghị**: Floor/wall sprites nên để ở `sprites/blocks/environment/` để được 
-pack đúng page.
+**Hệ quả với New Universe**: 
+- File ở `sprites/boarelis/enviroment/floor/X.png` → path contains `sprites/boarelis/enviroment` → **không** match `sprites/blocks/environment` → vào page `main`
+- File ở `sprites/blocks/environment/a/X.png` → path contains `sprites/blocks/environment` → vào page `environment` ✅
+- **Environment tiles (Floor, Wall, OreBlock) yêu cầu page `environment` để render đúng. Nếu sai page → hiển thị lỗi hoặc không load.**
+
+## 3b. Floor Variant Resolution
+
+Floor trong Mindustry resolve sprite variants qua `Floor.load()`:
+
+```java
+if(variants > 0){
+    variantRegions = new TextureRegion[variants];
+    for(int i = 0; i < variants; i++){
+        variantRegions[i] = Core.atlas.find(name + (i + 1));
+    }
+}else{
+    variantRegions = new TextureRegion[1];
+    variantRegions[0] = Core.atlas.find(name);
+}
+```
+
+Với Floor tên `"ice-floor"` (content name `new-universe-ice-floor`), variants=3:
+- Atlas regions cần: `new-universe-ice-floor1`, `2`, `3`
+- File sprite cần: `ice-floor1.png`, `ice-floor2.png`, `ice-floor3.png`
+
+**File naming rules** (tất cả lowercase + kebab-case):
+- Base: `{name}.png` → region `{mod}-{name}`
+- Variants: `{name}{N}.png` → region `{mod}-{name}{N}` (N = 1, 2, 3...)
+- ❌ `Ice-Floor1.png` → region `new-universe-Ice-Floor1` (uppercase → không match!)
+
+## 3c. Mod Prefix trong Region Name
+
+`Mods.packSprites()` quyết định region name:
+
+```java
+int hyphen = baseName.indexOf('-');
+String fullName = ((prefix && !(hyphen != -1 && baseName.substring(hyphen + 1).startsWith(mod.name + "-")))
+    ? mod.name + "-" : "") + baseName;
+```
+
+Logic:
+1. Luôn thêm `mod.name + "-"` (="new-universe-") vào trước base filename
+2. **NGOẠI LỆ**: Nếu filename đã có prefix `{category}-{modname}-` → không thêm nữa (tránh double prefix)
+
+Ví dụ:
+- `duras.png` → `new-universe-duras` ✅
+- `new-universe-duras.png` → `new-universe-duras` ✅ (không double prefix)
+- `Cophalast.png` → `new-universe-Cophalast` ❌ (sai case!)
+
+## 3d. Sprite Directory Structure Chuẩn
+
+```
+sprites/
+├── blocks/environment/borealis/   → PageType.environment
+│   ├── floor/{name}/              (Floor blocks, per-block folder)
+│   ├── wall/{name}/               (Wall blocks, per-block folder)
+│   ├── ore/{name}/                (OreBlock, per-block folder)
+│   └── props/{name}/              (Prop blocks, per-block folder)
+├── boarelis/                      → PageType.main
+│   ├── item/item/{name}.png       (Items)
+│   ├── item/gas/{name}.png        (Liquids)
+│   ├── unit/{line}/{name}-t{N}/   (Units, organized by line + tier)
+│   ├── building/cores/{name}/     (Cores: base, team, thruster-1, thruster-2)
+│   ├── building/turrets/{name}/   (Turrets: base, side-l/r, mid, blade, barrel, preview)
+│   └── building/{category}/       (Other buildings: ducts, conduits, power, production)
+├── sprites-override/              → Override vanilla (không prefix)
+│   └── team-blue.png
+└── pack.json
+```
+
+### Per-Block Folder Convention (env blocks)
+
+Mỗi block content có folder riêng:
+```
+blocks/environment/borealis/floor/ice-floor/
+  ice-floor1.png      # variant 1
+  ice-floor2.png      # variant 2
+  ice-floor3.png      # variant 3
+  # KHÔNG có base sprite (ice-floor.png) — useless khi variants > 0
+
+blocks/environment/borealis/wall/red-wall/
+  red-wall1.png       # variant 1 1x1
+  red-wall1-2x2.png   # variant 1 2x2
+  red-wall2.png       # variant 2 1x1
+  red-wall2-2x2.png   # variant 2 2x2
+  red-wall3.png       # variant 3 1x1
+  red-wall3-2x2.png   # variant 3 2x2
+
+blocks/environment/borealis/props/red-crystal-cluster/
+  red-crystal-cluster.png           # base (props cần base cho icon)
+  red-crystal-cluster1.png          # variant 1
+  red-crystal-cluster2.png          # variant 2
+  red-crystal-cluster-shadow1.png   # shadow (cùng folder, KHÔNG tạo subfolder riêng)
+```
+
+### Core Sprite Requirements
+
+CoreBlock dùng `@Load` annotation, cần:
+- `{name}.png` — base block region
+- `{name}-team.png` — team-colored overlay
+- `{name}-thruster-1.png` — thruster frame animation 1
+- `{name}-thruster-2.png` — thruster frame animation 2
+
+### Variant Naming Rules
+
+| Content Type | Pattern | Variants | Ví dụ |
+|---|---|---|---|
+| Floor | `{name}{N}.png` | N = 1..variants | `ice-floor1.png`, `ice-floor2.png` |
+| Wall 1x1 | `{name}{N}.png` | N = 1..variants | `red-wall1.png`, `red-wall2.png` |
+| Wall 2x2 | `{name}{N}-2x2.png` | N = 1..variants | `red-wall1-2x2.png` |
+| OreBlock | `{name}{N}.png` | N = 1..variants | `ore-cophalast1.png` |
+| Prop | `{name}{N}.png` | N = 1..variants | `boulder1.png`, `boulder2.png` |
+| Prop shadow | `{name}-shadow{N}.png` | cùng folder | `red-crystal-cluster-shadow1.png` |
 
 ---
 
@@ -346,13 +469,20 @@ Các weapon regions resolve từ tên weapon: `{weapon-name}.png`.
 
 ### Sprite Checklist
 
-- [ ] Item sprites: `sprites/items/{name}.png` (32×32, RGBA)
-- [ ] Ore sprites: `sprites/blocks/environment/ore-{name}N.png` (3 variants)
-- [ ] Floor sprites: `sprites/blocks/environment/{name}N.png` (N = 1..variants)
-- [ ] Wall sprites: `sprites/blocks/environment/{name}.png`
-- [ ] Turret base: `{name}-base.png` (tránh fallback generic)
-- [ ] Unit sprites: `sprites/units/{name}/{name}.png`
-- [ ] Weapon sprites: `sprites/units/{parent}/{weapon}.png`
+- [ ] Item sprites: `sprites/{any}/{name}.png` (32×32, RGBA, lowercase)
+- [ ] Ore sprites: `sprites/blocks/environment/{any}/{name}{N}.png` (N = 1..variants)
+- [ ] Floor sprites: `sprites/blocks/environment/{any}/{name}{N}.png` (N = 1..variants)
+- [ ] Wall sprites: `sprites/blocks/environment/{any}/{name}.png`
+- [ ] Turret sprites: `sprites/{any}/turrets/{name}/{name}.png` (và `-base`, `-preview`, `-side-l`, `-side-r`, `-mid`, `-blade-l`, `-blade-r`, `-barrel-l`, `-barrel-r`)
+- [ ] Unit sprites: `sprites/{any}/unit/{line}/{name}-t{N}/{name}.png`
+- [ ] Weapon sprites: `sprites/{any}/unit/{line}/{name}-t{N}/{name}-weapon.png`
+
+### Environment Sprite Checklist (New Universe)
+
+- [ ] **Path**: Sprite nằm ở đường dẫn chứa `sprites/blogenvironment` — nếu không, environment tiles sẽ không render
+- [ ] **Case**: Tất cả file lowercase — `ice-floor1.png` ✅, `Ice-Floor1.png` ❌
+- [ ] **Variants**: File đúng pattern `{name}{N}.png` — `ice-floor1.png` ✅, `ice-floor-1.png` ❌
+- [ ] **Wall size**: Wall 2×2 cần file `{name}-large.png` riêng, hoặc để Mindustry tự gen từ region
 
 ### Tech Tree Checklist
 
@@ -372,6 +502,44 @@ Các weapon regions resolve từ tên weapon: `{weapon-name}.png`.
 - [ ] Feather DI: `@Singleton` + `@Inject` constructor + `Feather.instance().loadContent()`
 - [ ] Load order: Items → Blocks → Units → Planets → TechTree
 - [ ] Mod prefix trong mod.hjson (`name: "new-universe"`) match với tên thư mục sprite
+
+### 📌 New Universe — Trạng thái hiện tại (2026-07-03)
+
+> ✅ = đã sửa, ❌ = còn tồn tại
+
+#### Sprite Directory (✅ Đã sửa)
+
+| Vấn đề | Trạng thái |
+|--------|-----------|
+| ~Sai tên thư mục `boarelis/enviroment/`~ | ✅ Chuyển sang `blocks/environment/borealis/{type}/{name}/` |
+| ~Env tiles sai atlas page (vào `main`)~ | ✅ Đường dẫn chứa `blocks/environment` → page `environment` |
+| ~Uppercase trong filename~ | ✅ Tất cả lowercase kebab-case |
+| ~Base sprite useless~ | ✅ Xoá base `{name}.png` khi variants tồn tại (Floor/Wall/Ore) |
+| ~Shadow overlay tạo folder riêng~ | ✅ Gộp vào folder parent block |
+| Item sprite `item/item/` double folder | ⚠️ Harmless với flattenPaths, giữ nguyên |
+
+#### Java Classes (✅ Đã thêm)
+
+| Class | Trạng thái |
+|-------|-----------|
+| Floor blocks (7) | ✅ `BorealisEnvironmentBlocks.java` |
+| Wall blocks (6) | ✅ `StaticWall` |
+| OreBlock (5) | ✅ cophalast, duras, navitas, vastum, wall-pausis |
+| Prop blocks | ✅ Giữ nguyên (7 props, shadows cùng folder) |
+| Liquid barbavior | ✅ Thêm mới |
+| Liquid horani | ✅ Thêm mới |
+
+#### ErisaPlanetGenerator (✅ Đã cập nhật)
+
+- Dùng custom blocks thay vì vanilla
+- 4 temperature zones × 5 height levels
+- Ore distribution mapping cho từng loại floor
+
+#### Core Blocks (✅ Đã thêm sprites)
+
+- `core-basis(-team, -thruster-1, -thruster-2)`
+- `core-centrum(-team, -thruster-1, -thruster-2)`
+- `core-preatorium(-team, -thruster-1, -thruster-2)`
 
 ---
 
