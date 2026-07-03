@@ -16,13 +16,35 @@ import static mindustry.Vars.state;
 public class ErisaPlanetGenerator extends PlanetGenerator {
     Block[][] terrain;
 
+    // custom blocks (optional, falls back to vanilla)
+    public Block iceFloor, snowFloor, stoneFloor, redFloor, darkDirtFloor, darkblueFloor;
+    public Block oreCopper, oreLead, oreTitanium;
+    public Block wallBlock;
+
     public ErisaPlanetGenerator() {
         baseSeed = 100;
+        useDefaults();
+    }
 
+    public void useDefaults() {
+        iceFloor = Blocks.ice;
+        snowFloor = Blocks.snow;
+        stoneFloor = Blocks.stone;
+        redFloor = Blocks.stone;
+        darkDirtFloor = Blocks.stone;
+        darkblueFloor = Blocks.stone;
+        oreCopper = Blocks.oreCopper;
+        oreLead = Blocks.oreLead;
+        oreTitanium = Blocks.oreTitanium;
+        wallBlock = Blocks.stoneWall;
+        rebuildTerrain();
+    }
+
+    public void rebuildTerrain() {
         terrain = new Block[][]{
-            {Blocks.water, Blocks.ice, Blocks.snow, Blocks.stone},
-            {Blocks.water, Blocks.ice, Blocks.stone, Blocks.stone},
-            {Blocks.water, Blocks.stone, Blocks.stone, Blocks.stone},
+            {Blocks.water, iceFloor, snowFloor, stoneFloor},
+            {Blocks.water, iceFloor, stoneFloor, stoneFloor},
+            {Blocks.water, stoneFloor, stoneFloor, stoneFloor},
         };
     }
 
@@ -90,17 +112,17 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
         pass((x, y) -> {
             if (!floor.asFloor().hasSurface()) return;
 
-            if ((floor == Blocks.stone)
+            if ((floor == stoneFloor || floor == redFloor || floor == darkblueFloor)
                     && noise(x, y, 2, 0.7, 50, 1) > 0.55f) {
-                ore = Blocks.oreCopper;
+                ore = oreCopper;
             }
 
-            if (floor == Blocks.ice && noise(x, y, 2, 0.7, 45, 1) > 0.5f) {
-                ore = Blocks.oreLead;
+            if (floor == iceFloor && noise(x, y, 2, 0.7, 45, 1) > 0.5f) {
+                ore = oreLead;
             }
 
-            if (floor == Blocks.snow && noise(x, y, 2, 0.7, 35, 1) > 0.55f) {
-                ore = Blocks.oreTitanium;
+            if (floor == snowFloor && noise(x, y, 2, 0.7, 35, 1) > 0.55f) {
+                ore = oreTitanium;
             }
         });
 
