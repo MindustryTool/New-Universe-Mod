@@ -4,7 +4,7 @@ import mindustry.type.Item;
 import mindustry.type.UnitType;
 import mindustry.world.Block;
 import org.mindustrytool.NewUniverse.content.borealis.content.building.BorealisBuildingBlocks;
-import org.mindustrytool.NewUniverse.content.borealis.content.building.turret.BorealisTurretBlocks;
+import org.mindustrytool.NewUniverse.content.borealis.content.building.BorealisTurretBlocks;
 import org.mindustrytool.NewUniverse.content.borealis.content.enviroment.BorealisEnvironmentBlocks;
 import org.mindustrytool.NewUniverse.content.borealis.content.enviroment.ore.BorealisOreBlocks;
 import org.mindustrytool.NewUniverse.content.borealis.content.item.BorealisItems;
@@ -98,6 +98,17 @@ public class BorealisContents {
     public Block coreCentrum;
     public Block corePreatorium;
 
+    // turrets
+    public Block ferios;
+    public Block augero;
+    public Block dustria;
+    public Block agatias;
+    public Block tormentis;
+    public Block pila;
+    public Block propius;
+    public Block lucis;
+    public Block novolary;
+
     public void loadContent() {
         items.loadContent();
         cophalast = items.cophalast;
@@ -162,6 +173,16 @@ public class BorealisContents {
         corePreatorium = buildingBlocks.corePreatorium;
 
         turretBlocks.loadContent();
+        ferios = turretBlocks.ferios;
+        augero = turretBlocks.augero;
+        dustria = turretBlocks.dustria;
+        agatias = turretBlocks.agatias;
+        tormentis = turretBlocks.tormentis;
+        pila = turretBlocks.pila;
+        propius = turretBlocks.propius;
+        lucis = turretBlocks.lucis;
+        novolary = turretBlocks.novolary;
+
         environmentBlocks.loadContent();
         oreBlocks.loadContent();
     }
