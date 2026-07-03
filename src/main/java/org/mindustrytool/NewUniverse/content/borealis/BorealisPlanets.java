@@ -7,6 +7,7 @@ import mindustry.content.Items;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.type.ItemStack;
 import mindustry.type.Planet;
+import org.mindustrytool.NewUniverse.content.borealis.content.BorealisContents;
 import org.mindustrytool.NewUniverse.content.borealis.erisa.ErisaPlanetGenerator;
 
 import javax.inject.Inject;
@@ -15,6 +16,8 @@ import javax.inject.Singleton;
 @Singleton
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class BorealisPlanets {
+    private final BorealisContents contents;
+
     public Planet borealisSun;
     public Planet erisa;
 
@@ -24,8 +27,10 @@ public class BorealisPlanets {
             accessible = false;
         }};
 
+        ErisaPlanetGenerator gen = new ErisaPlanetGenerator();
+
         erisa = new Planet("erisa", borealisSun, 1.2f, 4) {{
-            generator = new ErisaPlanetGenerator();
+            generator = gen;
             sectorSeed = 42;
             startSector = 10;
             defaultCore = Blocks.coreShard;
