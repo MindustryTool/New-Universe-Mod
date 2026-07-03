@@ -42,6 +42,16 @@ vào trước base filename, trừ khi filename đã có pattern `{category}-{mo
 **Kết luận**: Content name và atlas entry phải MATCH. Nếu content tên `new-universe-duras` 
 thì cần file `duras.png` ở đâu đó trong `sprites/`.
 
+### Case Sensitivity ⚠️
+
+Atlas packer **phân biệt hoa/thường** (case-sensitive). File `Cophalast.png` → atlas entry
+`new-universe-Cophalast`, nhưng content lookup dùng `new-universe-cophalast` → không match.
+
+**Luôn dùng lowercase + kebab-case** cho tên file sprite:
+- ✅ `duras.png`, `faras-alloy.png`, `tempered-glass.png`
+- ❌ `Duras.png`, `Faras alloy.png`, `Tempered glass.png`
+- ❌ `.PNG` extension → đổi thành `.png`
+
 ### @Load Annotation
 
 Annotation `@Load` tự động sinh code `Core.atlas.find()` với content name.
@@ -78,7 +88,53 @@ Annotation `@Load` tự động sinh code `Core.atlas.find()` với content name
 
 ---
 
-## 2. Sprite Format & Directory
+## 2. Bundle / Localization I18N
+
+### Bundle Key Format
+
+Bundle keys phải dùng **full content name (đã bao gồm mod prefix)**:
+
+```
+item.new-universe-{item-name}.name = Display Name
+item.new-universe-{item-name}.description = Mô tả
+```
+
+Không dùng key thiếu prefix (sẽ không được game nhận):
+- ❌ `item.cophalast.name = Cophalast`
+- ✅ `item.new-universe-cophalast.name = Cophalast`
+
+### Các loại content bundle keys
+
+```
+item.{mod}-{name}.name          — Item
+item.{mod}-{name}.description
+block.{mod}-{name}.name         — Block (floor, wall, turret, crafter, ...)
+block.{mod}-{name}.description
+unit.{mod}-{name}.name          — Unit
+unit.{mod}-{name}.description
+planet.{mod}-{name}.name        — Planet
+planet.{mod}-{name}.description
+liquid.{mod}-{name}.name        — Liquid
+liquid.{mod}-{name}.description
+status.{mod}-{name}.name        — Status effect
+status.{mod}-{name}.description
+```
+
+**Source**: Mindustry wiki modding guide, section "Bundles".
+
+### Locale codes hỗ trợ
+
+Mindustry hỗ trợ `vi` (Vietnamese). File đặt trong `resources/bundles/`:
+- `bundle.properties` — default (English)
+- `bundle_vi.properties` — Vietnamese
+
+### Encoding
+
+Properties files dùng UTF-8 (không cần Unicode escapes).
+
+---
+
+## 3. Sprite Format & Directory
 
 ### Yêu cầu kỹ thuật
 
@@ -124,7 +180,7 @@ pack đúng page.
 
 ---
 
-## 3. Tech Tree Chi Tiết
+## 4. Tech Tree Chi Tiết
 
 ### node() vs nodeProduce()
 
@@ -214,7 +270,7 @@ Không phải content name lookup.
 
 ---
 
-## 4. Block Sprite Conventions
+## 5. Block Sprite Conventions
 
 ### Floors
 
@@ -286,7 +342,7 @@ Các weapon regions resolve từ tên weapon: `{weapon-name}.png`.
 
 ---
 
-## 5. Common Pitfalls & Checklist
+## 6. Common Pitfalls & Checklist
 
 ### Sprite Checklist
 
@@ -305,6 +361,12 @@ Các weapon regions resolve từ tên weapon: `{weapon-name}.png`.
 - [ ] Auto-added Research objectives từ dependencies sẽ gate block research
 - [ ] Planet có `ruleSetter` set loadout cho starting items
 
+### Bundle / I18N Checklist
+
+- [ ] Bundle key có mod prefix: `item.new-universe-{name}.name` (không thiếu prefix)
+- [ ] File sprite lowercase kebab-case, `.png` (không `.PNG`)
+- [ ] File sprite không có khoảng trắng trong tên
+
 ### Content Registration Checklist
 
 - [ ] Feather DI: `@Singleton` + `@Inject` constructor + `Feather.instance().loadContent()`
@@ -313,7 +375,7 @@ Các weapon regions resolve từ tên weapon: `{weapon-name}.png`.
 
 ---
 
-## 6. Mindustry API Class Reference
+## 7. Mindustry API Class Reference
 
 ### Content Types (ClassMap.java)
 
@@ -356,5 +418,5 @@ jar tf build/libs/new-universe-desktop.jar | findstr png
 
 ---
 
-*Cập nhật: 2026-07-02. Nguồn: Mindustry core source (commit master), 
+*Cập nhật: 2026-07-03. Nguồn: Mindustry core source (commit master), 
 official wiki, real mods (MineDusty, Extra Utilities, Aeyama, Psammos).*
