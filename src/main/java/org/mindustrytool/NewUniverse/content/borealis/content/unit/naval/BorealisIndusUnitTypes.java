@@ -9,7 +9,7 @@ import mindustry.entities.bullet.LightningBulletType;
 import mindustry.entities.bullet.MissileBulletType;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.Sounds;
-import mindustry.gen.UnitEntity;
+import mindustry.gen.UnitWaterMove;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
@@ -34,7 +34,7 @@ public class BorealisIndusUnitTypes {
 
     private void indus() {
         indus = new UnitType("indus") {{
-            constructor = UnitEntity::create;
+            constructor = UnitWaterMove::create;
             health = 275;
             armor = 3;
             speed = 0.7f;
@@ -80,7 +80,7 @@ public class BorealisIndusUnitTypes {
 
     private void imperi() {
         imperi = new UnitType("imperi") {{
-            constructor = UnitEntity::create;
+            constructor = UnitWaterMove::create;
             health = 625;
             armor = 6;
             speed = 0.8f;
@@ -159,7 +159,7 @@ public class BorealisIndusUnitTypes {
 
     private void sruza() {
         sruza = new UnitType("sruza") {{
-            constructor = UnitEntity::create;
+            constructor = UnitWaterMove::create;
             health = 940;
             armor = 5;
             speed = 0.85f;
@@ -168,7 +168,6 @@ public class BorealisIndusUnitTypes {
             hitSize = 20;
             itemCapacity = 200;
             omniMovement = false;
-            lowAltitude = true;
             vulnerableWithPayloads = true;
             singleTarget = true;
             alwaysCreateOutline = true;
@@ -236,7 +235,7 @@ public class BorealisIndusUnitTypes {
 
     private void crater() {
         crater = new UnitType("crater") {{
-            constructor = UnitEntity::create;
+            constructor = UnitWaterMove::create;
             health = 11000;
             armor = 13;
             speed = 0.7f;
@@ -343,7 +342,7 @@ public class BorealisIndusUnitTypes {
 
     private void cetus() {
         cetus = new UnitType("cetus") {{
-            constructor = UnitEntity::create;
+            constructor = UnitWaterMove::create;
             health = 23500;
             armor = 14;
             speed = 0.55f;
