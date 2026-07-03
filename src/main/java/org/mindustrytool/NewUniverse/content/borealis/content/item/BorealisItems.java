@@ -45,13 +45,6 @@ public class BorealisItems {
     public Item flaxol;
 
     /**
-     * Compressed protective gas. Dense vapor or liquid plasma,
-     * ivory-white with a pale blue tint. Used as shielding gas,
-     * high-pressure propellant, or coolant.
-     */
-    public Item fortial;
-
-    /**
      * High-tech energy-conducting alloy. Deep blue with neon highlights,
      * sharp-edged and highly reflective. Conducts immense energy
      * without melting. Used in reactor cores, accelerators,
@@ -73,7 +66,7 @@ public class BorealisItems {
 
     /**
      * Compressed sand and sandstone grains. Yellow granular clusters.
-     * Used as filtration material or raw ingredient for glass-making.
+     * Used as filtration material or raw ingredient for glassmaking.
      */
     public Item sand;
 
@@ -128,12 +121,6 @@ public class BorealisItems {
             cost = 5;
         }};
 
-        fortial = new Item("fortial", Color.valueOf("E8F0FF")) {{
-            hardness = 1;
-            cost = 4;
-            flammability = 0.3f;
-        }};
-
         navitas = new Item("navitas", Color.valueOf("1E90FF")) {{
             hardness = 4;
             cost = 7;
@@ -173,5 +160,6 @@ public class BorealisItems {
             hardness = 2;
             cost = 2;
         }};
+
     }
 }

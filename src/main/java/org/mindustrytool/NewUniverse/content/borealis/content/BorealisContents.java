@@ -3,12 +3,13 @@ package org.mindustrytool.NewUniverse.content.borealis.content;
 import mindustry.type.Item;
 import mindustry.type.UnitType;
 import mindustry.world.Block;
-import org.mindustrytool.NewUniverse.content.borealis.content.building.BorealisBuildingBlocks;
+import org.mindustrytool.NewUniverse.content.borealis.content.building.BorealisCoreBlocks;
 import org.mindustrytool.NewUniverse.content.borealis.content.building.BorealisDistributionBlocks;
 import org.mindustrytool.NewUniverse.content.borealis.content.building.BorealisPowerBlocks;
 import org.mindustrytool.NewUniverse.content.borealis.content.building.BorealisProductionBlocks;
 import org.mindustrytool.NewUniverse.content.borealis.content.building.BorealisTurretBlocks;
 import org.mindustrytool.NewUniverse.content.borealis.content.enviroment.BorealisEnvironmentBlocks;
+import org.mindustrytool.NewUniverse.content.borealis.content.enviroment.BorealisOres;
 import org.mindustrytool.NewUniverse.content.borealis.content.item.BorealisItems;
 import org.mindustrytool.NewUniverse.content.borealis.content.item.BorealisLiquids;
 import org.mindustrytool.NewUniverse.content.borealis.content.unit.air.BorealisCoreUnitTypes;
@@ -35,25 +36,26 @@ public class BorealisContents {
     private final BorealisVeggvisUnitTypes veggvis;
     private final BorealisJuniorUnitTypes junior;
     private final BorealisDiphdaUnitTypes air;
-    private final BorealisBuildingBlocks buildingBlocks;
+    private final BorealisCoreBlocks coreBlocks;
     private final BorealisDistributionBlocks distributionBlocks;
     private final BorealisPowerBlocks powerBlocks;
     private final BorealisProductionBlocks productionBlocks;
     private final BorealisTurretBlocks turretBlocks;
     private final BorealisEnvironmentBlocks environmentBlocks;
+    private final BorealisOres ores;
 
     // items
     public Item cophalast;
 
     // liquids
-    public mindustry.type.Liquid cryoWater;
-    public mindustry.type.Liquid plasmaJuice;
+    public mindustry.type.Liquid barbavior;
+    public mindustry.type.Liquid fortial;
+    public mindustry.type.Liquid horani;
 
     public Item duras;
     public Item fabris;
     public Item farasAlloy;
     public Item flaxol;
-    public Item fortial;
     public Item navitas;
     public Item pausis;
     public Item rudis;
@@ -160,8 +162,29 @@ public class BorealisContents {
     public Block lucis;
     public Block novolary;
 
-    // test block
-    public Block testFloor;
+    // environment floors
+    public Block stoneFloor;
+    public Block redFloor;
+    public Block iceFloor;
+    public Block darkblueFloor;
+    public Block darkDirtFloor;
+    public Block blueCrystalFloor;
+    public Block denseBlueCrystalFloor;
+
+    // environment walls
+    public Block wallBlock;
+    public Block redWall;
+    public Block redDirtWall;
+    public Block iceWall;
+    public Block darkblueWall;
+    public Block blueCrystalWall;
+
+    // environment ores
+    public Block oreCophalast;
+    public Block oreDuras;
+    public Block oreNavitas;
+    public Block oreVastum;
+    public Block oreWallPausis;
 
     // environment props
     public Block boulder;
@@ -179,7 +202,6 @@ public class BorealisContents {
         fabris = items.fabris;
         farasAlloy = items.farasAlloy;
         flaxol = items.flaxol;
-        fortial = items.fortial;
         navitas = items.navitas;
         pausis = items.pausis;
         rudis = items.rudis;
@@ -190,8 +212,9 @@ public class BorealisContents {
         vastum = items.vastum;
 
         liquids.loadContent();
-        cryoWater = liquids.cryoWater;
-        plasmaJuice = liquids.plasmaJuice;
+        barbavior = liquids.barbavior;
+        fortial = liquids.fortial;
+        horani = liquids.horani;
 
         core.loadContent();
         miles = core.miles;
@@ -234,10 +257,17 @@ public class BorealisContents {
         crater = naval.crater;
         cetus = naval.cetus;
 
-        buildingBlocks.loadContent();
-        coreBasis = buildingBlocks.coreBasis;
-        coreCentrum = buildingBlocks.coreCentrum;
-        corePreatorium = buildingBlocks.corePreatorium;
+        coreBlocks.loadContent();
+        coreBasis = coreBlocks.coreBasis;
+        coreCentrum = coreBlocks.coreCentrum;
+        corePreatorium = coreBlocks.corePreatorium;
+
+        ores.loadContent();
+        oreCophalast = ores.oreCophalast;
+        oreDuras = ores.oreDuras;
+        oreNavitas = ores.oreNavitas;
+        oreVastum = ores.oreVastum;
+        oreWallPausis = ores.oreWallPausis;
 
         distributionBlocks.loadContent();
         conduit = distributionBlocks.conduit;
@@ -291,7 +321,19 @@ public class BorealisContents {
         novolary = turretBlocks.novolary;
 
         environmentBlocks.loadContent();
-        testFloor = environmentBlocks.testFloor;
+        stoneFloor = environmentBlocks.stoneFloor;
+        redFloor = environmentBlocks.redFloor;
+        iceFloor = environmentBlocks.iceFloor;
+        darkblueFloor = environmentBlocks.darkblueFloor;
+        darkDirtFloor = environmentBlocks.darkDirtFloor;
+        blueCrystalFloor = environmentBlocks.blueCrystalFloor;
+        denseBlueCrystalFloor = environmentBlocks.denseBlueCrystalFloor;
+        wallBlock = environmentBlocks.wallBlock;
+        redWall = environmentBlocks.redWall;
+        redDirtWall = environmentBlocks.redDirtWall;
+        iceWall = environmentBlocks.iceWall;
+        darkblueWall = environmentBlocks.darkblueWall;
+        blueCrystalWall = environmentBlocks.blueCrystalWall;
         boulder = environmentBlocks.boulder;
         redBoulder = environmentBlocks.redBoulder;
         iceBoulder = environmentBlocks.iceBoulder;

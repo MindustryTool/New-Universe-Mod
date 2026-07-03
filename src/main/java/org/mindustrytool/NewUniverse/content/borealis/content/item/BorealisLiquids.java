@@ -12,24 +12,32 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class BorealisLiquids {
 
-    public Liquid cryoWater;
-    public Liquid plasmaJuice;
+    public Liquid barbavior;
+    public Liquid horani;
+    public Liquid fortial;
 
     public void loadContent() {
-        cryoWater = new Liquid("cryo-water", Color.valueOf("7EC8E3")) {{
-            viscosity = 0.8f;
-            temperature = 0.1f;
-            heatCapacity = 1.2f;
-            barColor = Color.valueOf("5090B0");
-            effect = mindustry.content.StatusEffects.freezing;
+        barbavior = new Liquid("barbavior", Color.valueOf("8B7355")) {{
+            viscosity = 0.5f;
+            temperature = 0.4f;
+            heatCapacity = 0.8f;
+            barColor = Color.valueOf("6B5335");
         }};
 
-        plasmaJuice = new Liquid("plasma-juice", Color.valueOf("FF6B35")) {{
-            viscosity = 0.3f;
-            temperature = 0.9f;
-            heatCapacity = 0.4f;
-            flammability = 0.8f;
-            barColor = Color.valueOf("D04020");
+        fortial = new Liquid("fortial", Color.valueOf("E8F0FF")) {{
+            gas = true;
+            viscosity = 0.1f;
+            temperature = 0.3f;
+            heatCapacity = 0.5f;
+            flammability = 0.3f;
+            barColor = Color.valueOf("C0D8E8");
+        }};
+
+        horani = new Liquid("horani", Color.valueOf("2A7A5A")) {{
+            viscosity = 0.6f;
+            temperature = 0.5f;
+            heatCapacity = 0.7f;
+            barColor = Color.valueOf("1A5A3A");
         }};
     }
 }
