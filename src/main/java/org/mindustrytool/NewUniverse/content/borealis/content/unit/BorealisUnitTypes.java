@@ -1,6 +1,7 @@
 package org.mindustrytool.NewUniverse.content.borealis.content.unit;
 
 import org.mindustrytool.NewUniverse.content.borealis.content.unit.air.BorealisDiphdaUnitTypes;
+import org.mindustrytool.NewUniverse.content.borealis.content.unit.core.BorealisCoreUnitTypes;
 import org.mindustrytool.NewUniverse.content.borealis.content.unit.ground.BorealisNoaUnitTypes;
 import org.mindustrytool.NewUniverse.content.borealis.content.unit.naval.BorealisIndusUnitTypes;
 
@@ -13,11 +14,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class BorealisUnitTypes {
 
+    private final BorealisCoreUnitTypes core;
     private final BorealisDiphdaUnitTypes air;
     private final BorealisNoaUnitTypes ground;
     private final BorealisIndusUnitTypes naval;
 
     public void loadContent() {
+        core.loadContent();
         air.loadContent();
         ground.loadContent();
         naval.loadContent();
