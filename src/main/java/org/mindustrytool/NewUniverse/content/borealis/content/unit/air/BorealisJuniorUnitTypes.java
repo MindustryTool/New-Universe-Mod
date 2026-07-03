@@ -26,7 +26,12 @@ public class BorealisJuniorUnitTypes {
     public UnitType prider;
 
     public void loadContent() {
-        junior(); centia(); veralia(); impetuo(); auxiol(); prider();
+        junior();
+        centia();
+        veralia();
+        impetuo();
+        auxiol();
+        prider();
     }
 
     private void junior() {

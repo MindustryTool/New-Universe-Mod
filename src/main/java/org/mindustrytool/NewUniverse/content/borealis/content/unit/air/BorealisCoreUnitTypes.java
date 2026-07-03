@@ -24,7 +24,9 @@ public class BorealisCoreUnitTypes {
     public UnitType imperium;
 
     public void loadContent() {
-        miles(); caesar(); imperium();
+        miles();
+        caesar();
+        imperium();
     }
 
     private void miles() {

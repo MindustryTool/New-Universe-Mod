@@ -32,7 +32,11 @@ public class BorealisDiphdaUnitTypes {
     public UnitType spearhead;
 
     public void loadContent() {
-        diphda(); procyon(); sirius(); altiar(); spearhead();
+        diphda();
+        procyon();
+        sirius();
+        altiar();
+        spearhead();
     }
 
     private void diphda() {

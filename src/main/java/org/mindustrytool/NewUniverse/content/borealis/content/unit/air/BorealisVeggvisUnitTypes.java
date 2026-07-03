@@ -27,7 +27,11 @@ public class BorealisVeggvisUnitTypes {
     public UnitType ragnarok;
 
     public void loadContent() {
-        veggvis(); hermod(); valkyrie(); odin(); ragnarok();
+        veggvis();
+        hermod();
+        valkyrie();
+        odin();
+        ragnarok();
     }
 
     private void veggvis() {
