@@ -17,8 +17,8 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
     Block[][] terrain;
 
     public Block waterBlock;
-    public Block iceFloor, stoneFloor, redFloor, darkDirtFloor, darkblueFloor, blueCrystalFloor, denseBlueCrystalFloor;
-    public Block oreCophalast, oreDuras, oreNavitas, oreVastum, oreWallPausis;
+    public Block iceFloor, stoneFloor, redFloor, darkDirtFloor, darkblueFloor, blueCrystalFloor, denseBlueCrystalFloor, sandFloor;
+    public Block oreCophalast, oreDuras, oreNavitas, oreVastum, oreWallPausis, oreRudis, oreSand;
     public Block stoneWall, redWall, redDirtWall, iceWall, darkblueWall;
 
     public ErisaPlanetGenerator() {
@@ -35,11 +35,14 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
         darkblueFloor = Blocks.stone;
         blueCrystalFloor = Blocks.stone;
         denseBlueCrystalFloor = Blocks.stone;
+        sandFloor = Blocks.sand;
         oreCophalast = Blocks.oreCopper;
         oreDuras = Blocks.oreLead;
         oreNavitas = Blocks.oreTitanium;
         oreVastum = Blocks.oreThorium;
         oreWallPausis = Blocks.oreScrap;
+        oreRudis = Blocks.oreCopper;
+        oreSand = Blocks.oreScrap;
         stoneWall = Blocks.stoneWall;
         redWall = Blocks.stoneWall;
         redDirtWall = Blocks.stoneWall;
@@ -53,7 +56,8 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
             {waterBlock, iceFloor, stoneFloor, darkblueFloor, denseBlueCrystalFloor},
             {waterBlock, iceFloor, stoneFloor, blueCrystalFloor, denseBlueCrystalFloor},
             {waterBlock, blueCrystalFloor, darkDirtFloor, darkblueFloor, stoneFloor},
-            {waterBlock, redFloor, darkDirtFloor, stoneFloor, stoneFloor},
+            {waterBlock, redFloor, sandFloor, darkDirtFloor, stoneFloor},
+            {waterBlock, sandFloor, sandFloor, redFloor, redFloor},
         };
     }
 
@@ -129,6 +133,12 @@ public class ErisaPlanetGenerator extends PlanetGenerator {
             }
             if (floor == darkblueFloor && noise(x, y, 2, 0.7, 40, 1) > 0.5f) {
                 ore = oreWallPausis;
+            }
+            if (floor == redFloor && noise(x, y, 2, 0.7, 35, 1) > 0.6f) {
+                ore = oreRudis;
+            }
+            if (floor == sandFloor && noise(x, y, 2, 0.7, 40, 1) > 0.5f) {
+                ore = oreSand;
             }
         });
         trimDark();
