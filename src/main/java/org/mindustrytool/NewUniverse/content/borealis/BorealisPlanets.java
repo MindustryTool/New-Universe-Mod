@@ -1,11 +1,15 @@
 package org.mindustrytool.NewUniverse.content.borealis;
 
 import arc.graphics.Color;
+import arc.struct.Seq;
+import arc.struct.StringMap;
 import lombok.RequiredArgsConstructor;
-import mindustry.content.Blocks;
+import mindustry.game.Schematic;
+import mindustry.game.Schematic.Stile;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.type.ItemStack;
 import mindustry.type.Planet;
+
 import org.mindustrytool.NewUniverse.content.borealis.content.BorealisContents;
 import org.mindustrytool.NewUniverse.content.borealis.erisa.ErisaPlanetGenerator;
 
@@ -15,6 +19,8 @@ import javax.inject.Singleton;
 @Singleton
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class BorealisPlanets {
+    private final ErisaPlanetGenerator erisaPlanetGenerator;
+
     private final BorealisContents contents;
 
     public Planet borealisSun;
@@ -26,35 +32,10 @@ public class BorealisPlanets {
             accessible = false;
         }};
 
-        ErisaPlanetGenerator gen = new ErisaPlanetGenerator();
-        gen.waterBlock = Blocks.water;
-        gen.iceFloor = contents.iceFloor;
-        gen.stoneFloor = contents.stoneFloor;
-        gen.redFloor = contents.redFloor;
-        gen.darkDirtFloor = contents.darkDirtFloor;
-        gen.darkblueFloor = contents.darkblueFloor;
-        gen.blueCrystalFloor = contents.blueCrystalFloor;
-        gen.denseBlueCrystalFloor = contents.denseBlueCrystalFloor;
-        gen.sandFloor = contents.sandFloor;
-        gen.oreCophalast = contents.oreCophalast;
-        gen.oreDuras = contents.oreDuras;
-        gen.oreNavitas = contents.oreNavitas;
-        gen.oreVastum = contents.oreVastum;
-        gen.oreWallPausis = contents.oreWallPausis;
-        gen.oreRudis = contents.oreRudis;
-        gen.oreSand = contents.oreSand;
-        gen.stoneWall = contents.wallBlock;
-        gen.redWall = contents.redWall;
-        gen.redDirtWall = contents.redDirtWall;
-        gen.iceWall = contents.iceWall;
-        gen.darkblueWall = contents.darkblueWall;
-        gen.rebuildTerrain();
+        erisaPlanetGenerator.init(contents);
 
-        erisa = new Planet("erisa", borealisSun, 1.2f, 4) {{
-            generator = gen;
-            sectorSeed = 42;
-            startSector = 10;
-            defaultCore = contents.coreBasis;
+        erisa = new Planet("Erisa", borealisSun, 1f, 3) {{
+            generator = erisaPlanetGenerator;
             meshLoader = () -> new HexMesh(erisa, 6);
             accessible = true;
             alwaysUnlocked = true;
@@ -65,11 +46,21 @@ public class BorealisPlanets {
                     contents.sand, 20
                 );
             };
-            atmosphereRadIn = 0.02f;
-            atmosphereRadOut = 0.08f;
-            atmosphereColor = Color.valueOf("b07050");
+            startSector = 15;
+            defaultCore = contents.coreBasis;
             iconColor = Color.valueOf("b08050");
-            updateLighting = false;
+            landCloudColor = Color.blue.cpy().a(0.3F);
+            atmosphereColor = Color.blue.cpy().a(0.7F);
+            atmosphereRadIn = 0.02f;
+            atmosphereRadOut = 0.3f;
         }};
+
+        erisaPlanetGenerator.erisaPlanet = erisa;
+        erisaPlanetGenerator.defaultLoadout = new Schematic(
+            Seq.with(new Stile(contents.coreBasis, 0, 0, null, (byte)0)),
+            new StringMap(),
+            contents.coreBasis.size,
+            contents.coreBasis.size
+        );
     }
 }
