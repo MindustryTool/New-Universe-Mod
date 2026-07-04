@@ -36,7 +36,7 @@ public class BorealisCoreBlocks {
                     borealisItems.sand, 40
             ));
             alwaysUnlocked = true;
-            size = 3;
+            size = 4;
             health = 2000;
             itemCapacity = 4000;
             unitCapModifier = 8;
@@ -52,7 +52,7 @@ public class BorealisCoreBlocks {
                     borealisItems.simus, 100,
                     borealisItems.temperedGlass, 80
             ));
-            size = 4;
+            size = 5;
             health = 6000;
             itemCapacity = 8000;
             unitCapModifier = 16;
@@ -70,7 +70,7 @@ public class BorealisCoreBlocks {
                     borealisItems.fabris, 200,
                     borealisItems.flaxol, 100
             ));
-            size = 5;
+            size = 6;
             health = 15000;
             itemCapacity = 15000;
             unitCapModifier = 32;
