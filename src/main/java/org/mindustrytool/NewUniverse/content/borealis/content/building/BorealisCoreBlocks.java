@@ -1,12 +1,18 @@
 package org.mindustrytool.NewUniverse.content.borealis.content.building;
 
-import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.storage.CoreBlock;
 
+import mindustry.type.Category;
+import mindustry.type.ItemStack;
+import mindustry.type.UnitType;
+import mindustry.world.Block;
+import mindustry.world.blocks.storage.CoreBlock;
+
 import org.mindustrytool.NewUniverse.content.borealis.content.item.BorealisItems;
+import org.mindustrytool.NewUniverse.content.borealis.content.unit.air.BorealisCoreUnitTypes;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -17,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class BorealisCoreBlocks {
     private final BorealisItems borealisItems;
+    private final BorealisCoreUnitTypes coreUnits;
 
     public Block coreBasis;
     public Block coreCentrum;
@@ -35,6 +42,7 @@ public class BorealisCoreBlocks {
             unitCapModifier = 8;
             thrusterLength = 24f / 4f;
             squareSprite = false;
+            unitType = coreUnits.miles;
         }};
 
         coreCentrum = new CoreBlock("core-centrum") {{
@@ -42,7 +50,7 @@ public class BorealisCoreBlocks {
                     borealisItems.farasAlloy, 200,
                     borealisItems.flaxol, 150,
                     borealisItems.simus, 100,
-                    Items.silicon, 80
+                    borealisItems.temperedGlass, 80
             ));
             size = 4;
             health = 6000;
@@ -50,6 +58,7 @@ public class BorealisCoreBlocks {
             unitCapModifier = 16;
             thrusterLength = 28f / 4f;
             squareSprite = false;
+            unitType = coreUnits.caesar;
         }};
 
         corePreatorium = new CoreBlock("core-preatorium") {{
@@ -58,8 +67,8 @@ public class BorealisCoreBlocks {
                     borealisItems.duras, 250,
                     borealisItems.cophalast, 150,
                     borealisItems.tentias, 100,
-                    Items.plastanium, 200,
-                    Items.surgeAlloy, 100
+                    borealisItems.fabris, 200,
+                    borealisItems.flaxol, 100
             ));
             size = 5;
             health = 15000;
@@ -67,6 +76,7 @@ public class BorealisCoreBlocks {
             unitCapModifier = 32;
             thrusterLength = 32f / 4f;
             squareSprite = false;
+            unitType = coreUnits.imperium;
         }};
     }
 }
