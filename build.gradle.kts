@@ -10,6 +10,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
 val mindustryVersion = "v158"
 val jabelVersion = "93fde537c7"
 
