@@ -51,7 +51,8 @@ public class BorealisCoreUnitTypes {
             weapons.add(new Weapon("new-universe-miles-weapon") {{
                 mirror = false;
                 alternate = true;
-                rotate = false;
+                rotate = true;
+                top = true;
                 x = 0;
                 shootY = 2;
                 reload = 15;
